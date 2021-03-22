@@ -29,12 +29,14 @@ class Player {
         this.width = 25;
         this.height = 25;
         this.speed = {x: 0, y: 0};
-        this.position = {x: 100, y: gameHeight - this.height - 150};
+        this.position = {x: gameWidth - this.width - 100, y: gameHeight - this.height - 150};
         this.oldPosition = {x: 0, y: gameHeight - this.height};
         this.leftKeyDown = false;
         this.rightKeyDown = false;
+        this.color = 'black';
     }
     draw(ctx) {
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
     moveLeft() {
@@ -66,7 +68,7 @@ class Player {
 
     jump() {
         if(this.speed.y === 0) {
-            this.speed.y = 15;
+            this.speed.y = -15;
         }
         // console.log(this.position.y);        
     }
@@ -82,7 +84,8 @@ class Player {
         this.oldPosition.x = this.position.x;
         this.oldPosition.y = this.position.y;
         this.position.x += this.speed.x;
-        this.position.y -= this.speed.y;
+        this.position.y += this.speed.y;
+        console.log(this.oldPosition.y, this.position.y)
     }
     
 
@@ -92,6 +95,40 @@ const newPlayer = new Player;
 // newPlayer.draw(ctx);
 
 // ctx.fillRect(gameWidth /2, 500,100,100);
+
+
+// Enemy Class
+
+class Enemy {
+    constructor(){
+        this.width = 25;
+        this.height = 25;
+        this.color = 'red';
+        this.speed = {x: 0, y: 0};
+        this.position = {x: 250, y: gameHeight - this.height - 100};
+        this.oldPosition = {x: 0, y: gameHeight - this.height};
+        this.moveCounter = 0;
+        
+    }
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+    move() {
+        if (this.moveCounter % 100 < 50) {
+            this.position.x -= 2;
+        } else {
+            this.position.x += 2;
+        }
+        this.moveCounter += 1;
+        this.oldPosition.y = this.position.y;
+        this.position.y += this.speed.y;
+    }
+}
+
+
+
+const newEnemy = new Enemy;
 
 
 // Controls
@@ -126,6 +163,11 @@ document.addEventListener('keyup', (event) => {
 })
 
 
+
+
+
+
+
 // document.addEventListener('keyup', (event) => {
 //     if(event.keyCode === 37) {
 //         newPlayer.speed.x += 0.9;
@@ -143,9 +185,11 @@ const friction = () => {
 }
 
 const gravity = () => {
-    if(newPlayer.position.y < gameHeight - newPlayer.height) {
-        newPlayer.speed.y -= 1;
-    }
+    // if(newPlayer.position.y < gameHeight - newPlayer.height) {
+        
+    // }
+    newPlayer.speed.y += 1;
+    newEnemy.speed.y += 1;
 }
 
 
@@ -161,6 +205,10 @@ const gameRun = () => {
     checkPosition(newPlayer);
     newPlayer.checkLeftKeyDown();
     newPlayer.checkRightKeyDown();
+    newEnemy.draw(ctx);
+    checkPosition(newEnemy);
+    newEnemy.move();
+    checkColideWithEnemy(newPlayer, newEnemy);
     requestAnimationFrame(gameRun);
 }
 requestAnimationFrame(gameRun);
@@ -176,33 +224,46 @@ requestAnimationFrame(gameRun);
 
 // Collision Functions
 
-const collideLeft = (currentCol, currentRow) => {
-    if(newPlayer.oldPosition.x < newPlayer.position.x) {
-        newPlayer.speed.x = 0;
+const collideLeft = (currentCol, currentRow, character) => {
+    let leftSide = currentCol * updatedTileSize;
+    if(character.position.x + character.width > leftSide && character.oldPosition.x < character.position.x) {
+        character.speed.x = 0;
     }
-    newPlayer.position.x = currentCol * updatedTileSize - updatedTileSize - newPlayer.width;
+    character.position.x = currentCol * updatedTileSize - updatedTileSize - character.width;
 }
 
-const collideBottom = (currentCol, currentRow) => {
-    if(newPlayer.oldPosition.y > newPlayer.position.y) {
-        newPlayer.speed.y = 0;
+const collideBottom = (currentCol, currentRow, character) => {
+    let bottom = currentRow * updatedTileSize + updatedTileSize;
+    if(character.position.y < bottom && character.oldPosition.y < character.position.y) {
+        character.speed.y = 0;
+        character.position.y = currentRow * updatedTileSize + updatedTileSize;
     }
-    newPlayer.position.y = currentRow * updatedTileSize + updatedTileSize;
 }
 
-const collideRight = (currentCol, currentRow) => {
-    if(newPlayer.oldPosition.x > newPlayer.position.x) {
-        newPlayer.speed.x = 0;
+const collideRight = (currentCol, currentRow, character) => {
+    let rightSide = currentCol * updatedTileSize + updatedTileSize;
+    if(character.position.x < rightSide && character.oldPosition.x > character.position.x) {
+        character.speed.x = 0;
+        character.position.x = currentCol * updatedTileSize + updatedTileSize - 1;
     }
-    newPlayer.position.x = currentCol * updatedTileSize + updatedTileSize - 1;
 }
 
-const collideTop = (currentCol, currentRow) => {
+const collideTop = (currentCol, currentRow, character) => {
     let top = currentRow * updatedTileSize;
-    if(newPlayer.position.y + newPlayer.height > top && newPlayer.oldPosition.y < newPlayer.position.y) {
-        newPlayer.speed.y = 0;
-        newPlayer.position.y = top - newPlayer.height;
+    if(character.position.y + character.height > top && character.oldPosition.y < character.position.y ) {
+        character.speed.y = 0;
+        character.position.y = top - character.height;
     }
+}
+
+const win = () => {
+    console.log('You win!');
+    window.cancelAnimationFrame(gameRun);
+}
+
+const lose = () => {
+    console.log('You lose!');
+    window.cancelAnimationFrame(gameRun);
 }
 
 
@@ -211,7 +272,7 @@ const collideTop = (currentCol, currentRow) => {
 
 const collisionMap = [
     5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,
     4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,
     4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,3,0,0,0,
     4,0,0,0,0,0,0,0,0,0,13,0,0,0,9,3,0,3,3,5,0,0,0,0,0,
@@ -223,7 +284,7 @@ const collisionMap = [
     4,0,0,3,3,0,0,2,5,4,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,
     5,3,0,0,0,0,2,5,4,4,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,
     5,5,0,0,0,0,0,2,5,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-    5,5,3,3,3,3,3,5,5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+    5,5,3,3,3,3,3,5,5,5,15,15,3,3,3,3,3,3,3,3,3,3,3,3,3,
 ];
 
 const collisionMapRows = 14;
@@ -243,14 +304,16 @@ const collision = {
     10: (collideLeft, collideRight),
     11: (collideRight, collideTop),
     12: (collideBottom, collideLeft, collideRight),
-    13: (collideTop, collideLeft, collideRight)
+    13: (collideTop, collideLeft, collideRight),
+    14: win,
+    15: lose,
 }
 
 
 
 
 
-function checkPosition (player) {
+function checkPosition (character) {
     // Declaring values for use in checkPosition Function
     let currentCol = 0;
     let currentRow = 0;
@@ -258,45 +321,63 @@ function checkPosition (player) {
 
 
     //  Test top left corner
-    currentCol = Math.floor(player.position.x / updatedTileSize);
-    currentRow = Math.floor(player.position.y / updatedTileSize);
+    currentCol = Math.floor(character.position.x / updatedTileSize);
+    currentRow = Math.floor(character.position.y / updatedTileSize);
     postionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
     
     if(postionOnMapValue != 0) {
-        collision[postionOnMapValue](currentCol, currentRow);
+        collision[postionOnMapValue](currentCol, currentRow, character);
     }
 
 
     //  Test top right corner
-    currentCol = Math.floor((player.position.x + player.width) / updatedTileSize);
-    currentRow = Math.floor(player.position.y / updatedTileSize);
+    currentCol = Math.floor((character.position.x + character.width) / updatedTileSize);
+    currentRow = Math.floor(character.position.y / updatedTileSize);
     positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
 
     if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow);
+        collision[positionOnMapValue](currentCol, currentRow, character);
     }
 
     //  Test bottom left corner
-    currentCol = Math.floor(player.position.x / updatedTileSize);
-    currentRow = Math.floor((player.position.y + player.height) / updatedTileSize);
+    currentCol = Math.floor(character.position.x / updatedTileSize);
+    currentRow = Math.floor((character.position.y + character.height) / updatedTileSize);
     positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
     // console.log(postionOnMapValue);
     if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow);
+        collision[positionOnMapValue](currentCol, currentRow, character);
     }
 
     
     //  Test bottom right corner
-    currentCol = Math.floor((player.position.x + player.width) / updatedTileSize);
-    currentRow = Math.floor((player.position.y + player.height) / updatedTileSize);
+    currentCol = Math.floor((character.position.x + character.width) / updatedTileSize);
+    currentRow = Math.floor((character.position.y + character.height) / updatedTileSize);
     positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
 
     if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow);
+        collision[positionOnMapValue](currentCol, currentRow, character);
     }
 
 }   
 
+const checkColideWithEnemy = (player, enemy) => {
+    // Test top left
+    let playerTop = player.position.y;
+    let playerRight = player.position.x + player.width;
+    let playerBottom = player.position.y + player.height;
+    let playerLeft = player.position.x
+
+    let enemyTop = enemy.position.y;
+    let enemyRight = enemy.position.x + enemy.width;
+    let enemyBottom = enemy.position.y + enemy.height;
+    let enemyLeft = enemy.position.x;
+
+    if (playerTop > enemyBottom || playerRight < enemyLeft || playerBottom < enemyTop || playerLeft > enemyRight) {
+        // console.log('youre good')
+    } else {
+        alert('You hit the enemy!');
+    }
+}
 
 
 
