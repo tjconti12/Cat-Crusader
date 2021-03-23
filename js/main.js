@@ -3,13 +3,23 @@ const canvas = document.querySelector('#game_display');
 const ctx = canvas.getContext('2d');
 const width = canvas.width = 1200;
 const height = canvas.height = 672;
-
+const resetModal = document.querySelector('.resetModal');
+const resetModalXButton = document.querySelector('.resetModal__closeButton');
+const resetButton = document.querySelector('.resetModal__button');
+const winModal = document.querySelector('.winModal');
+const nextLevel = document.querySelector('.winModal__nextButton');
+const menuButton = document.querySelector('.winModal__menuButton');
 
 
 const backgroundCanvas = document.querySelector('#game_background');
 const backgroundctx = backgroundCanvas.getContext('2d');
 const backgroundWidth = backgroundCanvas.width = 1200;
 const backgroundHeight = backgroundCanvas.height = 672;
+
+const secondaryBackground = document.querySelector('#secondary_background');
+const secondaryBackgroundctx = secondaryBackground.getContext('2d');
+const secondaryBackgroundWidth = secondaryBackground.width = 1200;
+const secondaryBackgroundHeight = secondaryBackground.height = 672;
 
 // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics
 
@@ -22,12 +32,38 @@ let tileOutputSize = 3;
 
 let updatedTileSize = tileSize * tileOutputSize;
 
+// DOM Related Functions
+const toggleElementDisplay = (element) => {
+    element.classList.toggle('hidden');
+}
+
+// For now Ill refresh the page. I hope to reset without a reset
+const refreshPage = () => {
+    location.reload();
+}
+
+
+// DOM Event Listeners
+
+resetModalXButton.addEventListener('click', () => {
+    toggleElementDisplay(resetModal);
+});
+
+resetButton.addEventListener('click', refreshPage);
+
+
+nextLevel.addEventListener('click', () => {
+    toggleElementDisplay(winModal);
+    backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    level2();
+})
+
 // Test Rectangle Player
 // Decided to make the Player a class
 class Player {
     constructor(){
-        this.width = 25;
-        this.height = 25;
+        this.width = 35;
+        this.height = 35;
         this.speed = {x: 0, y: 0};
         this.position = {x: gameWidth - this.width - 100, y: gameHeight - this.height - 150};
         this.oldPosition = {x: 0, y: gameHeight - this.height};
@@ -85,7 +121,7 @@ class Player {
         this.oldPosition.y = this.position.y;
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
-        console.log(this.oldPosition.y, this.position.y)
+        
     }
     
 
@@ -131,36 +167,6 @@ class Enemy {
 const newEnemy = new Enemy;
 
 
-// Controls
-
-document.addEventListener('keydown', (event) => {
-    // How I determined the value of each keyboard key
-    // console.log(event.keyCode)
-    // // Left arrow: 37
-    // // Right arrow: 39
-    // // Up arrow: 38
-    // // Space Bar 32
-    if(event.keyCode === 37) {
-        // console.log('You pushed the left arrow!');
-        newPlayer.leftKeyDown = true;
-        
-    } else if (event.keyCode === 39) {
-        // console.log('You pushed the right arrow!');
-        newPlayer.rightKeyDown = true;
-        
-    } else if (event.keyCode === 32) {
-        // console.log('You pushed the space bar');
-        newPlayer.jump();
-    }
-})
-
-document.addEventListener('keyup', (event) => {
-    if(event.keyCode === 37) {
-        newPlayer.leftKeyDown = false;
-    } else if (event.keyCode === 39) {
-        newPlayer.rightKeyDown = false;
-    }
-})
 
 
 
@@ -194,25 +200,6 @@ const gravity = () => {
 
 
 
-// Need to make a game loop to keep redrawing square
-
-const gameRun = () => {
-    ctx.clearRect(0, 0, gameWidth, gameHeight);
-    newPlayer.draw(ctx);
-    friction();
-    gravity();
-    newPlayer.update();
-    checkPosition(newPlayer);
-    newPlayer.checkLeftKeyDown();
-    newPlayer.checkRightKeyDown();
-    newEnemy.draw(ctx);
-    checkPosition(newEnemy);
-    newEnemy.move();
-    checkColideWithEnemy(newPlayer, newEnemy);
-    requestAnimationFrame(gameRun);
-}
-requestAnimationFrame(gameRun);
-
 
 
 
@@ -222,161 +209,18 @@ requestAnimationFrame(gameRun);
 // Test for collision
 
 
-// Collision Functions
 
-const collideLeft = (currentCol, currentRow, character) => {
-    let leftSide = currentCol * updatedTileSize;
-    if(character.position.x + character.width > leftSide && character.oldPosition.x < character.position.x) {
-        character.speed.x = 0;
-    }
-    character.position.x = currentCol * updatedTileSize - updatedTileSize - character.width;
-}
-
-const collideBottom = (currentCol, currentRow, character) => {
-    let bottom = currentRow * updatedTileSize + updatedTileSize;
-    if(character.position.y < bottom && character.oldPosition.y < character.position.y) {
-        character.speed.y = 0;
-        character.position.y = currentRow * updatedTileSize + updatedTileSize;
-    }
-}
-
-const collideRight = (currentCol, currentRow, character) => {
-    let rightSide = currentCol * updatedTileSize + updatedTileSize;
-    if(character.position.x < rightSide && character.oldPosition.x > character.position.x) {
-        character.speed.x = 0;
-        character.position.x = currentCol * updatedTileSize + updatedTileSize - 1;
-    }
-}
-
-const collideTop = (currentCol, currentRow, character) => {
-    let top = currentRow * updatedTileSize;
-    if(character.position.y + character.height > top && character.oldPosition.y < character.position.y ) {
-        character.speed.y = 0;
-        character.position.y = top - character.height;
-    }
-}
 
 const win = () => {
-    console.log('You win!');
-    window.cancelAnimationFrame(gameRun);
+    toggleElementDisplay(winModal);
+    gameEngineDecider = false;
+    
 }
 
 const lose = () => {
     console.log('You lose!');
-    window.cancelAnimationFrame(gameRun);
-}
-
-
-
-
-
-const collisionMap = [
-    5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,
-    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,
-    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,3,0,0,0,
-    4,0,0,0,0,0,0,0,0,0,13,0,0,0,9,3,0,3,3,5,0,0,0,0,0,
-    4,0,0,0,0,9,3,11,0,0,5,3,3,3,0,0,0,0,0,0,0,0,0,0,0,
-    4,0,3,3,0,6,1,8,0,0,6,1,1,1,1,8,0,0,0,0,0,0,0,0,0,
-    4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    4,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    4,0,0,0,0,0,0,9,3,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    4,0,0,3,3,0,0,2,5,4,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    5,3,0,0,0,0,2,5,4,4,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,
-    5,5,0,0,0,0,0,2,5,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,
-    5,5,3,3,3,3,3,5,5,5,15,15,3,3,3,3,3,3,3,3,3,3,3,3,3,
-];
-
-const collisionMapRows = 14;
-const collisionMapCols = 25;
-
-
-const collision = {
-    1: collideBottom,
-    2: collideLeft,
-    3: collideTop,
-    4: collideRight,
-    5: (collideBottom, collideLeft, collideTop, collideRight),
-    6: (collideBottom, collideLeft),
-    7: (collideBottom, collideTop),
-    8: (collideBottom, collideRight),
-    9: (collideLeft, collideTop),
-    10: (collideLeft, collideRight),
-    11: (collideRight, collideTop),
-    12: (collideBottom, collideLeft, collideRight),
-    13: (collideTop, collideLeft, collideRight),
-    14: win,
-    15: lose,
-}
-
-
-
-
-
-function checkPosition (character) {
-    // Declaring values for use in checkPosition Function
-    let currentCol = 0;
-    let currentRow = 0;
-    let positionOnMapValue = 0;
-
-
-    //  Test top left corner
-    currentCol = Math.floor(character.position.x / updatedTileSize);
-    currentRow = Math.floor(character.position.y / updatedTileSize);
-    postionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
-    
-    if(postionOnMapValue != 0) {
-        collision[postionOnMapValue](currentCol, currentRow, character);
-    }
-
-
-    //  Test top right corner
-    currentCol = Math.floor((character.position.x + character.width) / updatedTileSize);
-    currentRow = Math.floor(character.position.y / updatedTileSize);
-    positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
-
-    if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow, character);
-    }
-
-    //  Test bottom left corner
-    currentCol = Math.floor(character.position.x / updatedTileSize);
-    currentRow = Math.floor((character.position.y + character.height) / updatedTileSize);
-    positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
-    // console.log(postionOnMapValue);
-    if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow, character);
-    }
-
-    
-    //  Test bottom right corner
-    currentCol = Math.floor((character.position.x + character.width) / updatedTileSize);
-    currentRow = Math.floor((character.position.y + character.height) / updatedTileSize);
-    positionOnMapValue = collisionMap[currentRow * collisionMapCols + currentCol];
-
-    if(positionOnMapValue != 0) {
-        collision[positionOnMapValue](currentCol, currentRow, character);
-    }
-
-}   
-
-const checkColideWithEnemy = (player, enemy) => {
-    // Test top left
-    let playerTop = player.position.y;
-    let playerRight = player.position.x + player.width;
-    let playerBottom = player.position.y + player.height;
-    let playerLeft = player.position.x
-
-    let enemyTop = enemy.position.y;
-    let enemyRight = enemy.position.x + enemy.width;
-    let enemyBottom = enemy.position.y + enemy.height;
-    let enemyLeft = enemy.position.x;
-
-    if (playerTop > enemyBottom || playerRight < enemyLeft || playerBottom < enemyTop || playerLeft > enemyRight) {
-        // console.log('youre good')
-    } else {
-        alert('You hit the enemy!');
-    }
+    toggleElementDisplay(resetModal);
+    gameEngineDecider = false;
 }
 
 
@@ -390,14 +234,11 @@ const checkColideWithEnemy = (player, enemy) => {
 
 
 
+/*
+Reference for canvas, ctx, requestAnimationFrame
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics
 
-
-
-
-
-// Reference for canvas, ctx, requestAnimationFrame
-//https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics
-
-// Reference for tiles and tile maps
-// https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps
-// https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps/Square_tilemaps_implementation:_Static_maps
+Reference for tiles and tile maps
+https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps
+https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps/Square_tilemaps_implementation:_Static_maps
+ */

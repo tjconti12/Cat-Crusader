@@ -8,14 +8,31 @@
     <title>Project1</title>
 </head>
 <body>
-    <canvas id="game_display"></canvas>
-    <canvas id="game_background"></canvas>
+    <div class="gameCanvases">
+        <canvas id="game_display"></canvas>
+        <canvas id="game_background"></canvas>
+        <canvas id="secondary_background"></canvas>
+    </div>
     
+    <div class="resetModal modal hidden">
+        <button class="resetModal__closeButton">X</button>
+        <button class="resetModal__button">Reset</button>
+    </div>
+    <div class="winModal modal hidden">
+        <button class="winModal__nextButton">Next Level</button>
+        <button class="winModal__menuButton">Main Menu</button>
+    </div>
 
     <script src="./js/main.js"></script>
+    <script src="./js/controls.js"></script>
+    <script src="./js/collisions.js"></script>
+    <script src="./js/gameEngine.js"></script>
     <!-- <script src="./js/map.js"></script> -->
     <!-- <script src="./js/map2.js"></script> -->
     <script src="./js/level1.js"></script>
-    <!-- <script src="./js/collision.js"></script> -->
+   
+    <!-- <script src="./js/transitionScreen.js"></script> -->
+    <script src="./js/pirateLevel.js"></script>
+    
 </body>
 </html>
