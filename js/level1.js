@@ -41,7 +41,7 @@ function level1 () {
                 mapIndex ++;
             }
         } 
-        drawcaveBackground();
+        // drawcaveBackground();
     }
 
     function drawcaveBackground() {

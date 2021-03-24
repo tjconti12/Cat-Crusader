@@ -1,9 +1,15 @@
 const level2 = () => {
 
-    newPlayer.position.x = 590;
-    newPlayer.position.y = 530;
+    newPlayer.position.x = 530;
+    newPlayer.position.y = 500;
     newPlayer.width = 25;
     newPlayer.height = 25;
+
+
+    levelPlayerSizeX = 40;
+    levelPlayerSizeY = 32;
+    levelPlayerYoffset = 5;
+
 
     newEnemy.position.x = 435;
     newEnemy.position.y = 320;

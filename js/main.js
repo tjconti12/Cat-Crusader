@@ -39,6 +39,10 @@ let currentLevel = 0;
 
 let oldPositionDelay = 0; // Adding a delay to updating old position to decrease margin of error
 
+let levelPlayerSizeX = 80; // 80
+let levelPlayerSizeY = 64; // 64
+let levelPlayerYoffset = 20;
+
 // For Background Imgs
 let caveBackground = new Image();
 caveBackground.src = './images/caveBackground.jpeg';
@@ -86,15 +90,15 @@ nextLevel.addEventListener('click', () => {
 
 // Cat animation
 // x is 88, y is 64
-const standingLeft = [(88 * 3) - 15, 64 * 0];
+const standingLeft = [(88 * 3) - 18, 64 * 0];
 const standingRight = [(88 * 1) -5, 64 * 5];
 const jumpingLeft = [(88 * 0) - 5, 64 * 0];
 const jumpingRight = [(88 * 4) - 17, 64 * 5];
 const walkingLeft = [
     [88 * 0, 64 * 1],[88 * 1, 64 * 1],[88 * 2, 64 * 1],[88 * 3, 64 * 1],[88 * 4, 64 * 1],[88 * 5, 64 * 1]
 ]
-const walkingRight = [ // needed an offset of -7 for some reason due to the tile sheet layout
-    [(88 * 5) - 7, 64 * 4],[(88 * 4) - 7, 64 * 4],[(88 * 3) - 7, 64 * 4],[(88 * 2) - 7, 64 * 4],[(88 * 1) - 7, 64 * 4],[(88 * 0) - 7, 64 * 4]
+const walkingRight = [ // needed an offset of -8 for some reason due to the tile sheet layout
+    [(88 * 5) - 8, 64 * 4],[(88 * 4) - 8, 64 * 4],[(88 * 3) - 8, 64 * 4],[(88 * 2) - 8, 64 * 4],[(88 * 1) - 8, 64 * 4],[(88 * 0) - 8, 64 * 4]
 ];
 const runningLeft = [
     [88 * 0, 64 * 2],[88 * 1, 64 * 2],[88 * 2, 64 * 2],[88 * 3, 64 * 2],[88 * 4, 64 * 2],[88 * 5, 64 * 2]
@@ -105,7 +109,7 @@ const runningRight = [ // needed an offset of +7 for some reason due to the tile
 
 
 
-let testIndex = 0;
+let animationPositionIndex = 0;
 let loopIndex = 0;
 // Test Rectangle Player
 // Decided to make the Player a class
@@ -126,30 +130,28 @@ class Player {
         // ctx.fillStyle = this.color;
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         if (this.jumping === true && this.oldPosition.x >= this.position.x) {
-            ctx.drawImage(this.Image, jumpingLeft[0], jumpingLeft[1], 80, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, jumpingLeft[0], jumpingLeft[1], 80, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.jumping === true && this.oldPosition.x < this.position.x) {
-            ctx.drawImage(this.Image, jumpingRight[0], jumpingRight[1], 80, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, jumpingRight[0], jumpingRight[1], 80, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.speed.x < -0.2 && this.speed.x > -4) {
-            ctx.drawImage(this.Image, walkingLeft[testIndex][0], walkingLeft[testIndex][1], 88, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, walkingLeft[animationPositionIndex][0], walkingLeft[animationPositionIndex][1], 88, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.speed.x > 0.2 && this.speed.x < 4) {
-            ctx.drawImage(this.Image, walkingRight[testIndex][0], walkingRight[testIndex][1], 88, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, walkingRight[animationPositionIndex][0], walkingRight[animationPositionIndex][1], 88, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.speed.x <= -4) {
-            ctx.drawImage(this.Image, runningLeft[testIndex][0], runningLeft[testIndex][1], 88, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, runningLeft[animationPositionIndex][0], runningLeft[animationPositionIndex][1], 88, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.speed.x >= 4) {
-            ctx.drawImage(this.Image, runningRight[testIndex][0], runningRight[testIndex][1], 88, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, runningRight[animationPositionIndex][0], runningRight[animationPositionIndex][1], 88, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else if (this.speed.x === 0 && this.oldPosition.x >= this.position.x) { 
-            ctx.drawImage(this.Image, standingLeft[0], standingLeft[1], 80, 64, this.position.x -20, this.position.y -20, 80, 64);
+            ctx.drawImage(this.Image, standingLeft[0], standingLeft[1], 80, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY);
         } else {
-            ctx.drawImage(this.Image, standingRight[0], standingRight[1], 80, 64, this.position.x -20, this.position.y -20, 80, 64); // For static
+            ctx.drawImage(this.Image, standingRight[0], standingRight[1], 80, 64, this.position.x -10, this.position.y - levelPlayerYoffset, levelPlayerSizeX, levelPlayerSizeY); // For static
         } 
   
-         
-        // tileAtlas, sourceX, sourceY, 16, 16, row * tileOutputSize, col * tileOutputSize, 16 * tileOutputSize, 16 * tileOutputSize
         if(loopIndex % 15 === 0) {
-            testIndex +=1;
+            animationPositionIndex +=1;
         }
-        if(testIndex === 5) {
-            testIndex = 0;
+        if(animationPositionIndex === 5) {
+            animationPositionIndex = 0;
         }
         loopIndex +=1;
     }
@@ -206,7 +208,7 @@ class Player {
         oldPositionDelay += 1;
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
-        if (this.speed.y === 0) {
+        if (this.speed.y < 10.5 && this.speed.y > -10.5) { // Had to add buffer here because collision logic was not allowing speed.y to go to 0
             this.jumping = false;
         }
         
@@ -223,7 +225,20 @@ const newPlayer = new Player;
 // ctx.fillRect(gameWidth /2, 500,100,100);
 
 
+
+// Enemy Animation variables
+const enemyWalkingLeft = [
+    [68 * 0, 40 * 0],[68 * 1, 40 * 0],[68 * 2, 40 * 0],[68 * 3, 40 * 0],[68 * 4, 40 * 0],[68 * 5, 40 * 0]
+]
+
+const enemyWalkingRight = [
+    [68 * 5, 40 * 1],[68 * 4, 40 * 1],[68 * 3, 40 * 1],[68 * 2, 40 * 1],[68 * 1, 40 * 1],[68 * 0, 40 * 1]
+]
+
+let enemyPositionIndex = 0;
+let enemyLoopIndex = 0;
 // Enemy Class
+
 
 class Enemy {
     constructor(name){
@@ -236,11 +251,29 @@ class Enemy {
         this.oldPosition = {x: 0, y: gameHeight - this.height};
         this.moveCounter = 0;
         this.moveDirectionStart = 2;
+        this.Image = Object.assign(new Image, {src: './images/dogSpriteSheet.gif'});
+        this.colors = {
+            brown: 0,
+            gray: 2,
+            white: 4
+        }
         
     }
     draw(ctx) {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        // ctx.fillStyle = this.color;
+        // ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Used during prototype testing before using an actual image
+        if(this.moveCounter % 100 < 50) {
+            ctx.drawImage(this.Image, enemyWalkingLeft[enemyPositionIndex][0], enemyWalkingLeft[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y, 68,44);
+            } else {
+                ctx.drawImage(this.Image, enemyWalkingRight[enemyPositionIndex][0], enemyWalkingRight[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y, 68,44);
+            }
+        if(enemyLoopIndex % 15 === 0) {
+            enemyPositionIndex +=1;
+        }
+        if(enemyPositionIndex === 5) {
+            enemyPositionIndex = 0;
+        }
+        enemyLoopIndex +=1;
     }
     move() {
         if (this.moveCounter % 100 < 50) {
@@ -250,7 +283,9 @@ class Enemy {
         }
         this.moveCounter += 1;
         this.oldPosition.y = this.position.y;
+        this.oldPosition.x = this.position.y;
         this.position.y += this.speed.y;
+        
     }
 }
 
