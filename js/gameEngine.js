@@ -11,12 +11,24 @@ const gameRun = () => {
     checkPosition(newPlayer);
     newPlayer.checkLeftKeyDown();
     newPlayer.checkRightKeyDown();
-    newEnemy.draw(ctx);
-    checkPosition(newEnemy);
-    newEnemy.move();
-    checkColideWithEnemy(newPlayer, newEnemy);
+    enemyArr.forEach((enemy) => {
+        enemy.draw(ctx);
+        enemy.move();
+        checkPosition(enemy);
+    
+    })
+    
+    // checkColideWithEnemy(newPlayer, newEnemy);
+    // console.log(gameEngineDecider);
     if (gameEngineDecider) {
-        requestAnimationFrame(gameRun);
+        requestAnimationFrame(() => {
+            gameRun()
+        });
     };
 }
-requestAnimationFrame(gameRun); // Uncomment to start game
+// requestAnimationFrame(() => {
+//     gameRun(level1CollisionMap);
+// }); // Uncomment to start game
+
+
+gameRun(); // FOR TESTINGGGG BE SURE TO UNCOMMENT

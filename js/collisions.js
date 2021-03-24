@@ -2,11 +2,11 @@
 
 // Collision Functions
 
-const hitLeft = (currentCol, currentRow, character) => {
+const hitLeft = (currentCol, character) => {
     let leftSide = currentCol * updatedTileSize;
-    if(character.position.x + character.width > leftSide && character.position.y > (currentRow * updatedTileSize)) {
+    if(character.position.x + character.width > leftSide && character.oldPosition.x <= character.position.x) {   // Had to add old position so it wouldnt confuse between left or right
         character.speed.x = 0;
-        character.position.x = currentCol * updatedTileSize - character.width;
+        character.position.x = (currentCol * updatedTileSize) - character.width;
         return true;
     } else {
         return false;
@@ -15,7 +15,7 @@ const hitLeft = (currentCol, currentRow, character) => {
 
 const hitBottom = (currentRow, character) => {
     let bottom = currentRow * updatedTileSize + updatedTileSize;
-    if(character.position.y < bottom) {
+    if(character.position.y < bottom && character.oldPosition.y > character.position.y) {
         character.speed.y = 0;
         character.position.y = currentRow * updatedTileSize + updatedTileSize;
         return true;
@@ -26,10 +26,9 @@ const hitBottom = (currentRow, character) => {
 
 const hitRight = (currentCol, character) => {
     let rightSide = (currentCol * updatedTileSize) + updatedTileSize;
-    if(character.position.x < rightSide) {
+    if(character.position.x < rightSide && character.oldPosition.x > character.position.x) {
         character.speed.x = 0;
         character.position.x = (currentCol * updatedTileSize) + updatedTileSize;
-        console.log(character.position.y, character.oldPosition.y)
         return true;
     } else {
         return false;
@@ -38,9 +37,10 @@ const hitRight = (currentCol, character) => {
 
 const hitTop = (currentRow, character) => {
     let top = currentRow * updatedTileSize;
-    if(character.position.y < top) {
+    if((character.position.y + (character.height / 2)) < top) {
         character.speed.y = 0;
         character.position.y = top - character.height;
+        
         return true;
     } else {
         return false;
@@ -66,8 +66,8 @@ const collision = {
     1: function(currentCol, currentRow, character) {
         hitBottom(currentRow, character);
         },
-    2: function(currentCol, currentRow, character) {
-        hitLeft(currentCol, currentRow, character);  
+    2: function(currentCol, currentRow, character) { 
+        hitLeft(currentCol, character)
         },
     3: function(currentCol, currentRow, character) {
         hitTop(currentRow, character);
@@ -79,7 +79,7 @@ const collision = {
         if (hitBottom(currentRow, character)) {
             return;
         }
-        if (hitLeft(currentCol, currentRow, character)) {
+        if (hitLeft(currentCol, character)) {
             return;
         }
         if (hitTop(currentRow, character)) {
@@ -93,15 +93,15 @@ const collision = {
         if (hitBottom(currentRow, character)) {
             return;
         }
-        if (hitLeft(currentCol, currentRow, character)) {
+        if (hitLeft(currentCol, character)) {
             return;
         }
         },
     7: function(currentCol, currentRow, character) {
-        if (hitBottom(currentRow, character)) {
+        if (hitTop(currentRow, character)) {
             return;
         }
-        if (hitTop(currentRow, character)) {
+        if (hitBottom(currentRow, character)) {
             return;
         }
         },
@@ -114,17 +114,15 @@ const collision = {
         }
         },
     9: function(currentCol, currentRow, character) {
-        if (hitLeft(currentCol, currentRow, character)) {
-            console.log('left');
+        if (hitTop(currentRow, character)) {
             return;
         }
-        if (hitTop(currentRow, character)) {
-            console.log('top');
+        if (hitLeft(currentCol, character)) {
             return;
         }
         },
     10: function(currentCol, currentRow, character) {
-        if (hitLeft(currentCol, currentRow, character)) {
+        if (hitLeft(currentCol, character)) {
             return;
         }
         if (hitRight(currentCol, character)) {
@@ -143,7 +141,7 @@ const collision = {
         if (hitBottom(currentRow, character)) {
             return;
         }
-        if (hitLeft(currentCol, currentRow, character)) {
+        if (hitLeft(currentCol, character)) {
             return;
         }
         if (hitRight(currentCol, character)) {
@@ -154,7 +152,7 @@ const collision = {
         if (hitTop(currentRow, character)) {
             return;
         }
-        if (hitLeft(currentCol, currentRow, character)) {
+        if (hitLeft(currentCol, character)) {
             return;
         }
         if (hitRight(currentCol, character)) {
@@ -166,6 +164,13 @@ const collision = {
     16: function(currentCol, currentRow, character) {
         hitSlope(currentCol, currentRow, character);
     },
+    17: function(currentCol, currentRow, character) {
+        let top = (currentRow * updatedTileSize) + 10;
+        if(character.position.y < top && character.oldPosition.y < character.position.y) {
+            character.speed.y = 0;
+            character.position.y = top - character.height;
+        }
+    }
 }
 
 function checkPosition (character) {
@@ -173,8 +178,7 @@ function checkPosition (character) {
     let currentCol = 0;
     let currentRow = 0;
     let positionOnMapValue = 0;
-
-
+    
     //  Test top left corner
     currentCol = Math.floor(character.position.x / updatedTileSize);
     currentRow = Math.floor(character.position.y / updatedTileSize);
