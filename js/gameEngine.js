@@ -18,8 +18,9 @@ const gameRun = () => {
         checkPosition(enemy);
     
     })
-    
-    // checkColideWithEnemy(newPlayer, newEnemy);
+    enemyArr.forEach(enemy => {
+        checkColideWithEnemy(newPlayer, enemy);
+    })
     // console.log(gameEngineDecider);
     
     if (gameEngineDecider) {

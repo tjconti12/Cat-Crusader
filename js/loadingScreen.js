@@ -1,7 +1,7 @@
 const loadingScreen = () => {
 
     
-
+    loadingH2.innerText = `Level ${currentLevel +1}`;
     let loadingScreenAtlas = new Image();
     loadingScreenAtlas.src = './images/transitionScreen.png';
     loadingScreenAtlas.onload = drawLoadingScreen // Uncomment this for background map
@@ -65,7 +65,7 @@ const loadingScreen = () => {
     runningIndex = 0;
     let movingX = 1150;
     let movingDelay = 0;
-
+    
 function drawLoadingCat() {
     ctx.clearRect(0, 0, gameWidth, gameHeight);
     ctx.drawImage(catRunning, collectionOfImgs[runningIndex][0], collectionOfImgs[runningIndex][1], 80, 64, movingX, 35, 80, 64);
@@ -88,7 +88,8 @@ function drawLoadingCat() {
             drawLoadingCat();
         });
     } else {
-        level1();
+        hideElement(loadingH2);
+        gameLevels[currentLevel]();
         ctx.clearRect(0, 0, gameWidth, gameHeight);
         backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
         backgroundImg.removeChild(forestBackground);

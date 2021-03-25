@@ -2,7 +2,7 @@
 
 document.addEventListener('keydown', (event) => {
     // How I determined the value of each keyboard key
-    console.log(event.keyCode)
+    // console.log(event.keyCode)
     // // Left arrow: 37
     // // Right arrow: 39
     // // Up arrow: 38

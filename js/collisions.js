@@ -198,8 +198,7 @@ function checkPosition (character) {
     let currentCol = 0;
     let currentRow = 0;
     let positionOnMapValue = 0;
-    console.log(collisionMap);
-    
+   
     //  Test top left corner
     currentCol = Math.floor(character.position.x / updatedTileSize);
     currentRow = Math.floor(character.position.y / updatedTileSize);
@@ -255,8 +254,6 @@ const checkColideWithEnemy = (player, enemy) => {
     if (playerTop > enemyBottom || playerRight < enemyLeft || playerBottom < enemyTop || playerLeft > enemyRight) {
         // console.log('youre good')
     } else {
-        console.log('You hit an enemy! You lose!');
-        gameEngineDecider = false;
-        toggleElementDisplay(resetModal);;
+        lose(player);
     }
 };

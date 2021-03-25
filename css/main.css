@@ -36,6 +36,21 @@ body {
   color: whitesmoke;
 }
 
+.loading-screen {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 5000;
+}
+.loading-screen h2 {
+  font-size: 7rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 30vw;
+}
+
 .gameCanvases {
   padding-left: 0;
   padding-right: 0;
