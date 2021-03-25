@@ -11,6 +11,7 @@ const gameRun = () => {
     checkPosition(newPlayer);
     newPlayer.checkLeftKeyDown();
     newPlayer.checkRightKeyDown();
+    checkOutOfLives();
     enemyArr.forEach((enemy) => {
         enemy.draw(ctx);
         enemy.move();
@@ -20,6 +21,7 @@ const gameRun = () => {
     
     // checkColideWithEnemy(newPlayer, newEnemy);
     // console.log(gameEngineDecider);
+    
     if (gameEngineDecider) {
         requestAnimationFrame(() => {
             gameRun()
@@ -31,4 +33,4 @@ const gameRun = () => {
 // }); // Uncomment to start game
 
 
-gameRun(); // FOR TESTINGGGG BE SURE TO UNCOMMENT
+// gameRun(); // FOR TESTINGGGG BE SURE TO UNCOMMENT

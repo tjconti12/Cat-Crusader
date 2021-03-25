@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/main.css">
     <title>Project1</title>
 </head>
 <body>
+    <div class="health-status">Remaining Lives: <span id="lives-counter"></span>
+        <img id="health1" src="./images/fishIcon.png" alt="health icon">
+        <img id="health2" src="./images/fishIcon.png" alt="health icon">
+        <img id="health3" src="./images/fishIcon.png" alt="health icon">
+        <img id="health4" src="./images/fishIcon.png" alt="health icon">
+        <img id="health5" src="./images/fishIcon.png" alt="health icon">
+    </div>
+    <div class="title-page">
+        <h1>Cat Crusader</h1>
+        
+    </div>
+    
     <div class="gameCanvases">
+        <button id="play-button">Play Now</button>
         <canvas id="game_display"></canvas>
         <canvas id="game_background"></canvas>
         <canvas id="secondary_background"></canvas>
@@ -16,7 +31,7 @@
     
     <div class="resetModal modal hidden">
         <button class="resetModal__closeButton">X</button>
-        <button class="resetModal__button">Reset</button>
+        <button class="resetModal__button">Restart Level</button>
     </div>
     <div class="winModal modal hidden">
         <button class="winModal__nextButton">Next Level</button>
@@ -27,14 +42,16 @@
 
 
     <script src="./js/main.js"></script>
+    <script src="./js/intro.js"></script>
     <script src="./js/controls.js"></script>
+    <script src="./js/loadingScreen.js"></script>
     <script src="./js/level1.js"></script>
     <script src="./js/collisions.js"></script>
     <script src="./js/gameEngine.js"></script>
     <script src="./js/pirateLevel.js"></script>
     <script src="./js/forestLevel.js"></script>
    
-    <!-- <script src="./js/transitionScreen.js"></script> -->
+    
     
 </body>
 </html>

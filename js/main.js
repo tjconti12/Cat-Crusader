@@ -9,6 +9,15 @@ const resetButton = document.querySelector('.resetModal__button');
 const winModal = document.querySelector('.winModal');
 const nextLevel = document.querySelector('.winModal__nextButton');
 const menuButton = document.querySelector('.winModal__menuButton');
+const playButton = document.querySelector('#play-button');
+const titlePage = document.querySelector('.title-page');
+const livesCounter = document.querySelector('#lives-counter');
+const healthIcon1 = document.querySelector('#health1');
+const healthIcon2 = document.querySelector('#health2');
+const healthIcon3 = document.querySelector('#health3');
+const healthIcon4 = document.querySelector('#health4');
+const healthIcon5 = document.querySelector('#health5');
+
 
 
 const backgroundCanvas = document.querySelector('#game_background');
@@ -43,6 +52,10 @@ let levelPlayerSizeX = 80; // 80
 let levelPlayerSizeY = 64; // 64
 let levelPlayerYoffset = 20;
 
+let collisionMap = []; // Needed to declare this before gameRun function in loading screen
+let collisionMapCols = 25;
+let collisionMapRows = 14;
+
 // For Background Imgs
 let caveBackground = new Image();
 caveBackground.src = './images/caveBackground.jpeg';
@@ -50,27 +63,53 @@ caveBackground.src = './images/caveBackground.jpeg';
 let forestBackground = new Image();
 forestBackground.src = './images/forestBackground.jpeg';
 
-
+const healthIconsArr = [healthIcon1, healthIcon2, healthIcon3, healthIcon4, healthIcon5];
 
 
 // DOM Related Functions
-const toggleElementDisplay = (element) => {
+const toggleElementDisplay = (element) => {  // This function only works sometimes?? 
     element.classList.toggle('hidden');
 }
 
-// For now Ill refresh the page. I hope to reset without a reset
-const refreshPage = () => {
-    location.reload();
+const showElement = (element) => {
+    element.classList.remove('hidden');
+}
+
+const hideElement = (element) => {
+    element.classList.add('hidden');
+}
+
+
+
+const restartGame = () => {
+    // location.reload();
+    hideElement(resetModal);
+    backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    gameLevels[currentLevel]();
+    enemyArr.pop();
+    gameEngineDecider = true;
+    gameRun();
 }
 
 
 // DOM Event Listeners
 
+playButton.addEventListener('click', () => {
+    letIntroRun = false;
+    hideElement(playButton);
+    hideElement(titlePage);
+    
+    loadingScreen();
+    // gameRun();
+    // level1();
+    
+})
+
 resetModalXButton.addEventListener('click', () => {
     toggleElementDisplay(resetModal);
 });
 
-resetButton.addEventListener('click', refreshPage);
+resetButton.addEventListener('click', restartGame);
 
 
 nextLevel.addEventListener('click', () => {
@@ -78,9 +117,10 @@ nextLevel.addEventListener('click', () => {
     if (backgroundImg.hasChildNodes('img')) {
         backgroundImg.removeChild(caveBackground);
     }
-    backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     currentLevel += 1;
     gameLevels[currentLevel]();
+    secondaryBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     gameEngineDecider = true;
     gameRun();
     
@@ -117,6 +157,7 @@ class Player {
     constructor(){
         this.width = 36;
         this.height = 36;
+        this.health = 5;
         this.speed = {x: 0, y: 0};
         this.position = {x: gameWidth - this.width - 100, y: gameHeight - this.height - 150};
         this.oldPosition = {x: 0, y: gameHeight - this.height};
@@ -205,6 +246,7 @@ class Player {
             this.oldPosition.x = this.position.x;
             this.oldPosition.y = this.position.y;
         }
+        livesCounter.innerText= newPlayer.health;
         oldPositionDelay += 1;
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
@@ -226,14 +268,7 @@ const newPlayer = new Player;
 
 
 
-// Enemy Animation variables
-const enemyWalkingLeft = [
-    [68 * 0, 40 * 0],[68 * 1, 40 * 0],[68 * 2, 40 * 0],[68 * 3, 40 * 0],[68 * 4, 40 * 0],[68 * 5, 40 * 0]
-]
 
-const enemyWalkingRight = [
-    [68 * 5, 40 * 1],[68 * 4, 40 * 1],[68 * 3, 40 * 1],[68 * 2, 40 * 1],[68 * 1, 40 * 1],[68 * 0, 40 * 1]
-]
 
 let enemyPositionIndex = 0;
 let enemyLoopIndex = 0;
@@ -251,21 +286,38 @@ class Enemy {
         this.oldPosition = {x: 0, y: gameHeight - this.height};
         this.moveCounter = 0;
         this.moveDirectionStart = 2;
+        this.colorCode = 0; // The offset number to set the enemy color
         this.Image = Object.assign(new Image, {src: './images/dogSpriteSheet.gif'});
         this.colors = {
             brown: 0,
             gray: 2,
             white: 4
-        }
-        
+        };
+        this.enemyWalkingLeft = [
+            [68 * 0, 40 * this.colorCode],[68 * 1, 40 * this.colorCode],[68 * 2, 40 * this.colorCode],[68 * 3, 40 * this.colorCode],[68 * 4, 40 * this.colorCode],[68 * 5, 40 * this.colorCode]
+        ];
+        this.enemyWalkingRight = [
+            [70 * 5, 40 * (this.colorCode + 1)],[70 * 4, 40 * (this.colorCode + 1)],[70 * 3, 40 * (this.colorCode + 1)],[70 * 2, 40 * (this.colorCode + 1)],[70 * 1, 40 * (this.colorCode + 1)],[70 * 0, 40 * (this.colorCode + 1)]
+        ]
+        // Change to loops
     }
+    setColor (color) {
+        if(color === 'brown') {
+            this.colorCode = 0; 
+        } else if (color === 'gray') {
+            this.colorCode = 2;
+        } else if (color === 'white') {
+            this.colorCode = 4;
+        }
+    }
+
     draw(ctx) {
         // ctx.fillStyle = this.color;
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Used during prototype testing before using an actual image
         if(this.moveCounter % 100 < 50) {
-            ctx.drawImage(this.Image, enemyWalkingLeft[enemyPositionIndex][0], enemyWalkingLeft[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y, 68,44);
+            ctx.drawImage(this.Image, this.enemyWalkingLeft[enemyPositionIndex][0], this.enemyWalkingLeft[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y -20, 68,44);
             } else {
-                ctx.drawImage(this.Image, enemyWalkingRight[enemyPositionIndex][0], enemyWalkingRight[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y, 68,44);
+                ctx.drawImage(this.Image, this.enemyWalkingRight[enemyPositionIndex][0], this.enemyWalkingRight[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y -20, 68,44);
             }
         if(enemyLoopIndex % 15 === 0) {
             enemyPositionIndex +=1;
@@ -289,12 +341,13 @@ class Enemy {
     }
 }
 
+// Enemy Animation variables
+
+
+
 
 let enemyArr = [];
 
-const newEnemy = new Enemy('num1');
-newEnemy.position.x = 280;
-enemyArr.push(newEnemy);
 
 
 
@@ -330,7 +383,11 @@ const gravity = () => {
     // if(newPlayer.position.y < gameHeight - newPlayer.height) {
         
     // }
-    newPlayer.speed.y += 1;
+    if(newPlayer.speed.y < 4) {
+        newPlayer.speed.y += 1;
+    } else {
+        newPlayer.speed.y = 4;
+    }
     enemyArr.forEach(enemy => {
         enemy.speed.y += 1;
     })
@@ -352,19 +409,26 @@ const gravity = () => {
 const win = () => {
     toggleElementDisplay(winModal);
     gameEngineDecider = false;
-    
+    console.log('win!');
 }
 
-const lose = () => {
+const lose = (character) => {
     console.log('You lose!');
-    toggleElementDisplay(resetModal);
+    showElement(resetModal);
     gameEngineDecider = false;
+    character.health -= 1;
+    hideElement(healthIconsArr[character.health]); 
 }
 
 
 
 
-
+// Check if out of lives
+const checkOutOfLives = () => {
+    if(newPlayer.health === 0) {
+        alert('You lose!');
+    }
+}
 
 
 

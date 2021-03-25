@@ -1,11 +1,21 @@
 function level1 () {
 
+    //this.position = {x: gameWidth - this.width - 100, y: gameHeight - this.height - 150};
+    newPlayer.position.x = gameWidth - newPlayer.width -80;
+    newPlayer.position.y = gameHeight - newPlayer.height -180;
+
+    const newEnemy = new Enemy('num1');
+    newEnemy.position.x = 280;
+    enemyArr.push(newEnemy);
+    newEnemy.setColor('gray');
+
     let tileAtlas = new Image();
     tileAtlas.src = './images/tileAtlas.png';
     tileAtlas.onload = draw; // Uncomment this for background map
 
-    // let tileSize = 16;
-    // let tileOutputSize = 3; // 1X can set it higher to make tiles bigger and more spaced
+    tileSize = 16;
+    tileOutputSize = 3; // 1X can set it higher to make tiles bigger and more spaced
+    updatedTileSize = tileSize * tileOutputSize;
 
 
     let gameMap = [
@@ -41,7 +51,7 @@ function level1 () {
                 mapIndex ++;
             }
         } 
-        // drawcaveBackground();
+        drawcaveBackground();
     }
 
     function drawcaveBackground() {
@@ -49,35 +59,36 @@ function level1 () {
     }
     
     // credit Spriteshift (https://spriteshift.itch.io/) 
+    
+    // Collision info for this map
+    
+    collisionMapCols = 25;
+    collisionMapRows = 14;
+    
+    collisionMap = [
+        5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,14,
+        4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,16,16, 3, 3, 3,
+        4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 1, 1, 0, 0, 0,
+        4, 0, 0, 0, 0, 0, 0, 0, 0, 0,13, 0, 0, 0, 9, 3, 0, 3, 3, 1, 0, 0, 0, 0, 0,
+        4, 0, 0, 0, 0, 9, 3,11, 0, 0, 2, 3, 3, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        4, 0, 3, 3, 0, 1, 1, 1, 0, 0, 6, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        4, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+        4, 0, 0, 3, 3, 0, 0, 2, 0, 4, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+        0, 3, 0, 1, 1, 0, 0, 2, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+        0, 4, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 0, 0, 0,16,16, 3,11, 0, 0, 0, 2,
+        0, 4, 3, 3, 3, 3, 3, 5, 0, 5,15,15, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3,
+    ];
+    console.log('I was here');
 }
-
-// Collision info for this map
-
-let collisionMapCols = 25;
-let collisionMapRows = 14;
-
-let collisionMap = [
-    5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,14,
-    4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,16,16, 3, 3, 3,
-    4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 1, 1, 0, 0, 0,
-    4, 0, 0, 0, 0, 0, 0, 0, 0, 0,13, 0, 0, 0, 9, 3, 0, 3, 3, 1, 0, 0, 0, 0, 0,
-    4, 0, 0, 0, 0, 9, 3,11, 0, 0, 2, 3, 3, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    4, 0, 3, 3, 0, 1, 1, 1, 0, 0, 6, 1, 1, 1, 1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    4, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-    4, 0, 0, 3, 3, 0, 0, 2, 0, 4, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-    0, 3, 0, 1, 1, 0, 0, 2, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-    0, 4, 0, 0, 0, 0, 0, 2, 0, 4, 0, 0, 0, 0, 0, 0, 0,16,16, 3,11, 0, 0, 0, 2,
-    0, 4, 3, 3, 3, 3, 3, 5, 0, 5,15,15, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3,
-];
 
 
 
 gameLevels.push(level1);
 
-level1();
+// level1();
 
 
 

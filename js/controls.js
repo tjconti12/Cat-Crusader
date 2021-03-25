@@ -2,7 +2,7 @@
 
 document.addEventListener('keydown', (event) => {
     // How I determined the value of each keyboard key
-    // console.log(event.keyCode)
+    console.log(event.keyCode)
     // // Left arrow: 37
     // // Right arrow: 39
     // // Up arrow: 38
@@ -18,6 +18,9 @@ document.addEventListener('keydown', (event) => {
     } else if (event.keyCode === 32) {
         // console.log('You pushed the space bar');
         newPlayer.jump();
+    }
+    else if (event.keyCode === 67) {
+        win();
     }
 })
 

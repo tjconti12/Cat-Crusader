@@ -1,16 +1,47 @@
 * {
     box-sizing: border-box;
     padding: 0;
+    font-size: 10px;
     margin: 0 auto;
     // border: 2px solid black;
     // overflow: hidden;
     width: 1200px;
+    font-family: 'New Tegomin', serif;
 }
 
 
 
 body {
     margin-left: 30px;
+    background: linear-gradient(black, white);
+    
+}
+
+.health-status {
+    color: whitesmoke;
+    font-size: 2rem;
+    img {
+        width: 30px;
+    }
+}
+
+.title-page {
+    background-image: url('../images/introBackground.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 1200px;
+    height: 700px;
+    position: absolute;
+    margin: 0 auto;
+    
+    
+    h1 {
+        font-size: 6rem;
+        text-align: center;
+        transform: translateY(80px);
+        color: whitesmoke;
+    }
+    
 }
 
 .gameCanvases {
@@ -22,6 +53,17 @@ body {
     display: block;
     width: 1200px;
     position: absolute;
+    z-index: 100;
+    button {
+        height: 10vh;
+        width: 15vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        font-size: 3rem;
+    }
 }
 
 #game_background {
@@ -59,10 +101,11 @@ canvas {
     justify-content: center;
     align-items: center;
     background-color: white;
+    z-index: 3000;
 }
 
 .resetModal {
-    
+    z-index: 3000;
     .resetModal__closeButton {
         position: absolute;
         top: 0;
@@ -71,8 +114,8 @@ canvas {
         margin: 5px;
     }
     .resetModal__button {
-        height: 25px;
-        width: 55px;
+        height: 45px;
+        width: 120px;
     }
 }
 
@@ -83,6 +126,7 @@ canvas {
         height: 50px;
         width: 100px;
     }
+    z-index: 3000;
 }
 
 .hidden {

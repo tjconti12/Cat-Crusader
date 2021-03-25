@@ -160,7 +160,9 @@ const collision = {
         }
         },
     14: win,
-    15: lose,
+    15: function(currentCol, currentRow, character) {
+        lose(character);
+        },
     16: function(currentCol, currentRow, character) {
         hitSlope(currentCol, currentRow, character);
     },
@@ -170,6 +172,24 @@ const collision = {
             character.speed.y = 0;
             character.position.y = top - character.height;
         }
+    },
+    18: function(currentCol, currentRow, character) {
+        let top = (currentRow * updatedTileSize) + 10;
+        if(character.position.y < top && character.oldPosition.y < character.position.y) {
+            character.speed.y = 0;
+            character.position.y = top - character.height;
+        } else {
+            hitLeft(currentCol, character);
+        }
+    },
+    19: function(currentCol, currentRow, character) {
+        let top = (currentRow * updatedTileSize) + 10;
+        if(character.position.y < top && character.oldPosition.y < character.position.y) {
+            character.speed.y = 0;
+            character.position.y = top - character.height;
+        } else {
+            hitRight(currentCol, character);
+        }
     }
 }
 
@@ -178,6 +198,7 @@ function checkPosition (character) {
     let currentCol = 0;
     let currentRow = 0;
     let positionOnMapValue = 0;
+    console.log(collisionMap);
     
     //  Test top left corner
     currentCol = Math.floor(character.position.x / updatedTileSize);
