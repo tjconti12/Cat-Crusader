@@ -123,12 +123,14 @@ canvas {
 
 .resetModal {
     z-index: 3000;
+    background-color: #90EE90;
     .resetModal__closeButton {
         position: absolute;
         top: 0;
         left: 0;
         width: 20px;
         margin: 5px;
+        
     }
     .resetModal__button {
         height: 45px;
@@ -145,6 +147,22 @@ canvas {
     }
     z-index: 3000;
 }
+
+.gameOver-modal {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    h2 {
+        font-size: 7rem;
+        margin-bottom: 2rem;
+    }
+    button {
+        width: 10vw;
+        height: 5vh;
+        font-size: 3rem;
+    }
+}
+
 
 .hidden {
     display: none;

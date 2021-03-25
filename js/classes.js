@@ -1,3 +1,11 @@
+// Class related global variables
+let levelPlayerSizeX = 80; // 80      // This allows me to change the size of the character depending on the level
+let levelPlayerSizeY = 64; // 64
+let levelPlayerYoffset = 20;          // This offset is to correct changes when resizing the character on different levels
+
+let levelEnemySizeX = 68;             // This allows me to change the size of the enemy depending on the level
+let levelEnemySizeY = 44;
+let levelEnemyYoffset = 20;            // This offset is to correct changes when resizing the enemy on different levels
 // Decided to make the Player a class
 class Player {
     constructor(){
@@ -161,9 +169,9 @@ class Enemy {
         // ctx.fillStyle = this.color;
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height); // Used during prototype testing before using an actual image
         if(this.moveCounter % 100 < 50) {
-            ctx.drawImage(this.Image, this.enemyWalkingLeft[enemyPositionIndex][0], this.enemyWalkingLeft[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y -20, 68,44);
+            ctx.drawImage(this.Image, this.enemyWalkingLeft[enemyPositionIndex][0], this.enemyWalkingLeft[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y - levelEnemyYoffset, levelEnemySizeX,levelEnemySizeY);
             } else {
-                ctx.drawImage(this.Image, this.enemyWalkingRight[enemyPositionIndex][0], this.enemyWalkingRight[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y -20, 68,44);
+                ctx.drawImage(this.Image, this.enemyWalkingRight[enemyPositionIndex][0], this.enemyWalkingRight[enemyPositionIndex][1], 68, 40, this.position.x, this.position.y - levelEnemyYoffset, levelEnemySizeX, levelEnemySizeY);
             }
         if(enemyLoopIndex % 15 === 0) {
             enemyPositionIndex +=1;

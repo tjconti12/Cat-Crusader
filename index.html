@@ -21,11 +21,21 @@
         <h1>Cat Crusader</h1>
         
     </div>
+    <div class="intro modal hidden">
+        <h2>Welcome to Cat Crusader!</h2>
+        <p>The Dogs are starting to take over the area! You must sneak past the hounds and secure a victory!</p>
+        <button id="intro-nextButton">Next</button>
+    </div>
+    <div class="instructions-modal modal hidden">
+        <h2>How To Play</h2>
+        <p>Control your character using the keyboard. The left and right arrow keys allow you to move. If you hit the space bar, your character will jump! Acknowledge the instructions to continue!</p>
+        <button id ="acknowledge-button">Acknowledge</button>
+    </div>
     <div class="loading-screen">
         <h2 class="loading-screen-h2"></h2>
     </div>
     <div class="gameCanvases">
-        <button id="play-button">Play Now</button>
+        <button id="start-button">Start</button>
         <canvas id="game_display"></canvas>
         <canvas id="game_background"></canvas>
         <canvas id="secondary_background"></canvas>
@@ -38,6 +48,10 @@
     <div class="winModal modal hidden">
         <button class="winModal__nextButton">Next Level</button>
         <button class="winModal__menuButton">Main Menu</button>
+    </div>
+    <div class="gameOver-modal modal hidden">
+        <h2>GAME OVER</h2>
+        <button>Play Again</button>
     </div>
     <div class="map-background"></div>
 

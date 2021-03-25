@@ -11,7 +11,6 @@ const gameRun = () => {
     checkPosition(newPlayer);
     newPlayer.checkLeftKeyDown();
     newPlayer.checkRightKeyDown();
-    checkOutOfLives();
     enemyArr.forEach((enemy) => {
         enemy.draw(ctx);
         enemy.move();

@@ -9,7 +9,7 @@ const resetButton = document.querySelector('.resetModal__button');
 const winModal = document.querySelector('.winModal');
 const nextLevel = document.querySelector('.winModal__nextButton');
 const menuButton = document.querySelector('.winModal__menuButton');
-const playButton = document.querySelector('#play-button');
+const startButton = document.querySelector('#start-button');
 const titlePage = document.querySelector('.title-page');
 const livesCounter = document.querySelector('#lives-counter');
 const healthIcon1 = document.querySelector('#health1');
@@ -18,6 +18,7 @@ const healthIcon3 = document.querySelector('#health3');
 const healthIcon4 = document.querySelector('#health4');
 const healthIcon5 = document.querySelector('#health5');
 const loadingH2 = document.querySelector('.loading-screen-h2');
+const gameOverModal = document.querySelector('.gameOver-modal');
 
 
 
@@ -49,9 +50,7 @@ let currentLevel = 0;
 
 let oldPositionDelay = 0; // Adding a delay to updating old position to decrease margin of error
 
-let levelPlayerSizeX = 80; // 80
-let levelPlayerSizeY = 64; // 64
-let levelPlayerYoffset = 20;
+
 
 let collisionMap = []; // Needed to declare this before gameRun function in loading screen
 let collisionMapCols = 25;
@@ -95,9 +94,9 @@ const restartGame = () => {
 
 // DOM Event Listeners
 
-playButton.addEventListener('click', () => {
+startButton.addEventListener('click', () => {
     letIntroRun = false;
-    hideElement(playButton);
+    hideElement(startButton);
     hideElement(titlePage);
     loadingScreen();
     // gameRun();
@@ -201,22 +200,19 @@ const win = () => {
 }
 
 const lose = (character) => {
-    console.log('You lose!');
-    showElement(resetModal);
-    gameEngineDecider = false;
     character.health -= 1;
-    hideElement(healthIconsArr[character.health]); 
-}
-
-
-
-
-// Check if out of lives
-const checkOutOfLives = () => {
-    if(newPlayer.health === 0) {
-        alert('You lose!');
+    if(character.health === 0) {
+        showElement(gameOverModal);
+    } else {
+        console.log('You lose!');
+        showElement(resetModal);
+        gameEngineDecider = false;
+        hideElement(healthIconsArr[character.health]); 
     }
 }
+
+
+
 
 
 

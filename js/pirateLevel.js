@@ -4,12 +4,16 @@ const level2 = () => {
     newPlayer.position.y = 500;
     newPlayer.width = 25;
     newPlayer.height = 25;
+    newPlayer.speed.x = 0;
 
 
     levelPlayerSizeX = 40;
     levelPlayerSizeY = 32;
     levelPlayerYoffset = 5;
 
+    levelEnemySizeX = 40;
+    levelEnemySizeY = 32;
+    levelEnemyYoffset = 5;
 
     enemyArr[0].position.x = 415;
     enemyArr[0].position.y = 320;
