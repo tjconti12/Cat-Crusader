@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  font-size: 10px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 1200px;
+  font-family: "New Tegomin", serif;
+}
+
+body {
+  margin: 0 auto;
+  display: block;
+  background: linear-gradient(black, white);
+  width: 100vw;
+  height: 100vh;
+}
+
+.health-status {
+  color: whitesmoke;
+  font-size: 2rem;
+}
+.health-status img {
+  width: 30px;
+}
+
+.title-page {
+  background-image: url("../images/introBackground.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 900px;
+  height: 504px;
+  position: absolute;
+  margin: 0 auto;
+}
+.title-page h1 {
+  font-size: 6rem;
+  text-align: center;
+  transform: translateY(10px);
+  color: whitesmoke;
+  width: 900px;
+}
+
+.screen {
+  position: absolute;
+  top: 25%;
+  text-align: center;
+  z-index: 5000;
+  width: 900px;
+}
+.screen h2 {
+  font-size: 4rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 500px;
+}
+.screen h3 {
+  font-size: 3rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 500px;
+}
+.screen p {
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 500px;
+  line-height: 6rem;
+}
+
+.gameCanvases {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  display: block;
+  width: 900px;
+  height: 504;
+  position: absolute;
+  z-index: 100;
+}
+.gameCanvases .button-container #start-button {
+  height: 50px;
+  width: 120px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-size: 3rem;
+}
+.gameCanvases .button-container #tutorial-start-button {
+  height: 50px;
+  width: 120px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-size: 2.8rem;
+}
+.gameCanvases #fish-target {
+  position: absolute;
+  z-index: 500000;
+  width: 80px;
+}
+.gameCanvases .map-background {
+  width: 900px;
+  height: 504px;
+  overflow: hidden;
+  position: absolute;
+  z-index: -2000;
+  margin: 0;
+  top: 0%;
+}
+.gameCanvases .map-background img {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#game_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+#secondary_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2000;
+}
+
+#third_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -3000;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 900px;
+}
+
+.modal {
+  height: 300px;
+  width: 500px;
+  border: 3px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  border-radius: 2%;
+  z-index: 3000;
+}
+.modal button {
+  background-color: whitesmoke;
+}
+
+.resetModal {
+  z-index: 3000;
+  background-color: gray;
+}
+.resetModal .resetModal__closeButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  margin: 5px;
+  background-color: whitesmoke;
+}
+.resetModal .resetModal__button {
+  height: 45px;
+  width: 120px;
+  background-color: whitesmoke;
+}
+
+.winModal {
+  display: flex;
+  flex-direction: column;
+  z-index: 3000;
+}
+.winModal h3 {
+  width: 100%;
+  font-size: 3rem;
+  text-align: center;
+}
+.winModal button {
+  margin: 20px;
+  height: 50px;
+  width: 100px;
+}
+
+.gameOver-modal {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.gameOver-modal h2 {
+  font-size: 7rem;
+  margin-bottom: 2rem;
+}
+.gameOver-modal button {
+  width: 100px;
+  height: 50px;
+  font-size: 2.5rem;
+}
+
+.win-game-modal {
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
+.win-game-modal h2 {
+  font-size: 4rem;
+  width: 100%;
+}
+.win-game-modal button {
+  height: 45px;
+  width: 240px;
+  background-color: whitesmoke;
+  font-size: 2.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  body {
+    margin: 0;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

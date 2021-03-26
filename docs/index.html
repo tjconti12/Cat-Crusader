@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Project1</title>
+</head>
+<body>
+    <div class="health-status">Remaining Lives: <span id="lives-counter"></span>
+        <img id="health1" src="./images/fishIcon.png" alt="health icon">
+        <img id="health2" src="./images/fishIcon.png" alt="health icon">
+        <img id="health3" src="./images/fishIcon.png" alt="health icon">
+        <img id="health4" src="./images/fishIcon.png" alt="health icon">
+        <img id="health5" src="./images/fishIcon.png" alt="health icon">
+    </div>
+    <div class="title-page">
+        <h1>Cat Crusader</h1>
+        
+    </div>
+    
+    </div>
+    
+    <div class="loading-screen screen">
+        <h2 class="loading-screen-h2"></h2>
+        <h3 class="loading-screen-h3"></h3>
+    </div>
+    <div class="tutorial-screen screen">
+        <h2 class="tutorial-screen-h2"></h2>
+        <p class="tutorial-screen-p"></p>
+    </div>
+    <div class="gameCanvases">
+        <div class="button-container">
+            <button id="start-button">Start</button>
+            <button id="tutorial-start-button">Tutorial</button>
+        </div>
+        <canvas id="game_display"></canvas>
+        <canvas id="game_background"></canvas>
+        <canvas id="secondary_background"></canvas>
+        <canvas id="third_background"></canvas>
+        <img id="fish-target" class="hidden" src="./images/fishTargetFinal.gif">    <!--  Moved to gameCanvas so I can position relative to the canvas  -->
+        <div class="map-background"></div>
+
+        <div class="resetModal modal hidden">
+            <button class="resetModal__closeButton">X</button>
+            <button class="resetModal__button">Restart Level</button>
+        </div>
+        <div class="winModal modal hidden">
+            <h3 class="winText"></h3>
+            <button class="winModal__nextButton">Next Level</button>
+            <button class="winModal__menuButton">Main Menu</button>
+        </div>
+        <div class="win-game-modal modal hidden">
+            <h2>GAME OVER!</h2>
+            <h2>CONGRATULATIONS!</h2>
+            <button id="win-game-play-button">Play Again</button>
+        </div>
+        <div class="gameOver-modal modal hidden">
+            <h2>GAME OVER</h2>
+            <button id = "game-over-play-button">Play Again</button>
+        </div>
+    </div>
+    
+    
+    
+    
+
+
+
+    <script src="./js/main.js"></script>
+    <script src="./js/classes.js"></script>
+    <script src="./js/intro.js"></script>
+    <script src="./js/controls.js"></script>
+    <script src="./js/collisions.js"></script>
+    <script src="./js/gameEngine.js"></script>
+    <script src="./js/loadingScreen.js"></script>
+    <script src="./js/tutorial.js"></script>
+    <script src="./js/houseLevel.js"></script>
+    <script src="./js/neighborhoodLevel.js"></script>
+    <script src="./js/forestLevel.js"></script>
+    <script src="./js/pirateLevel.js"></script>
+   
+    
+    
+</body>
+</html>
