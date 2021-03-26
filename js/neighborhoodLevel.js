@@ -1,7 +1,7 @@
 const level7 = () => {
 
     fishTarget.style.top = '-10px';
-    fishTarget.style.left = '830px';
+    fishTarget.style.left = '820px';
     showElement(fishTarget);
 
     newPlayer.position.x = 800;
@@ -10,7 +10,15 @@ const level7 = () => {
     newPlayer.height = 25;
     newPlayer.speed.x = 0;
 
+    enemyArr.pop();
 
+    newEnemy2 = new Enemy;
+    newEnemy2.position.x = 280;
+    newEnemy2.position.y = 390;
+
+    enemyArr.push(newEnemy2);
+
+    
     
     let loadingScreenAtlas = new Image();
     loadingScreenAtlas.src = './images/transitionScreen.png';
@@ -59,7 +67,6 @@ const level7 = () => {
     }
 
     function drawNeighborhoodBackground() {
-        backgroundImg.classList.add('move-up');
         backgroundImg.appendChild(neighborhoodBackground);
         
     }
@@ -68,7 +75,7 @@ const level7 = () => {
     collisionMapRow = 14;
 
     collisionMap = [
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 3, 3, 3, 3,14,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 3, 3, 0, 0, 0, 0, 0, 0,
         3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,

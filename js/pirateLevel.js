@@ -15,19 +15,26 @@ const level4 = () => {
     levelPlayerSizeY = 32;
     levelPlayerYoffset = 5;
 
+    enemyArr.pop();
+
     levelEnemySizeX = 40;
     levelEnemySizeY = 32;
     levelEnemyYoffset = 5;
 
-    // enemyArr[0].position.x = 415;
-    // enemyArr[0].position.y = 320;
+    enemyArr[0].position.x = 310;
+    enemyArr[0].position.y = 290;
 
-    // newEnemy2 = new Enemy('num2');
+    newEnemy2 = new Enemy();
+    newEnemy2.position.x = 380;
+    newEnemy2.position.y = 100;
+    enemyArr.push(newEnemy2);
+
+    newEnemy3 = new Enemy;
     // newEnemy2.setColor('gray');
-    // newEnemy2.position.x = 480;
-    // newEnemy2.position.y = 200;
+    newEnemy3.position.x = 840;
+    newEnemy3.position.y = 150;
     // // newEnemy2.moveDirectionStart = -2;
-    // enemyArr.push(newEnemy2);
+    enemyArr.push(newEnemy3);
 
     let shipAtlas = new Image();
     shipAtlas.src = './images/pirates.v1.png';
@@ -142,7 +149,7 @@ const level4 = () => {
         0, 0, 0, 0, 0, 0, 0, 0,11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0,11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        4,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15, 2,
+       15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15, 2,
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     ];
 

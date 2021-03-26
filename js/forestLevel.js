@@ -4,20 +4,24 @@ const level3 = () => {
     fishTarget.style.left = '830px';
     showElement(fishTarget);
 
-    newPlayer.position.x = 20;
-    newPlayer.position.y = 500;
+    newPlayer.position.x = 40;
+    newPlayer.position.y = 350;
     newPlayer.width = 25;
     newPlayer.height = 25;
     newPlayer.speed.x = 0;
     
-    // enemyArr[0].position.x = 180;
-    // enemyArr[0].position.y = 520;
+    enemyArr.pop();
+
+    newEnemy1 = new Enemy();
+    newEnemy1.position.x = 200;
+    newEnemy1.position.y = 350;
+    enemyArr.push(newEnemy1);
     // enemyArr[1].position.x = 380;
     // enemyArr[1].position.y = 10;
-    // newEnemy3 = new Enemy('num2');
-    // newEnemy3.position.x = 90;
-    // newEnemy3.position.y = 300;
-    // enemyArr.push(newEnemy3);
+    newEnemy2 = new Enemy;
+    newEnemy2.position.x = 300;
+    newEnemy2.position.y = 100;
+    enemyArr.push(newEnemy2);
 
     let forestAtlas = new Image();
     forestAtlas.src = './images/forestTileAtlas.png';
@@ -88,7 +92,7 @@ const level3 = () => {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,17,17,17, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,14,
         0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,17,17,17,17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 3, 3, 3,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,17,17,17,17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,17,17,17,17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,

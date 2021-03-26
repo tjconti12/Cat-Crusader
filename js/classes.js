@@ -85,13 +85,19 @@ class Player {
         // console.log(this.position.y);        
     }
     update() {
-        if(this.position.x <= 0) {
-            this.position.x = 0
-        } else if (this.position.x > gameWidth - this.width) {
-            this.position.x = gameWidth - this.width;
+        if(this.position.x < 5) {
+            this.position.x = 5;
+            this.speed.x = 0;
+        } else if (this.position.x > gameWidth - this.width - 5) {
+            this.position.x = gameWidth - this.width - 5;
+            this.speed.x = 0;
         }
-        if(this.position.y >= gameHeight - this.height) {
-            this.position.y = gameHeight - this.height -10;
+        if(this.position.y > gameHeight - this.height - 5) {
+            this.position.y = gameHeight - this.height -5;
+            this.speed.y = 0;
+        } else if (this.position.y < 10) {
+            this.position.y = 10;
+            this.speed.y = 0;
         }
         if(this.speed.x < 0.1 && this.speed.x > -0.1) { // added this if statement to keep character from gliding on their own
             this.speed.x = 0;
@@ -130,8 +136,7 @@ let enemyLoopIndex = 0;
 
 
 class Enemy {
-    constructor(name){
-        this.name = name;
+    constructor(){
         this.width = 25;
         this.height = 25;
         this.color = 'red';

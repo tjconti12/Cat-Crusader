@@ -5,8 +5,8 @@ function tutorial () {
     newPlayer.position.y = gameHeight - newPlayer.height -180;
 
 
-    fishTarget.style.top = '120px';
-    fishTarget.style.left = '1180px';
+    fishTarget.style.top = '30px';
+    fishTarget.style.left = '830px';
 
     tutorialH2.innerText = `Welcome to the tutorial!`;
 
@@ -20,16 +20,16 @@ function tutorial () {
     }, 4000);
 
     setTimeout(() => {
-        const newEnemy = new Enemy('num1');
-        newEnemy.position.x = 280;
-        enemyArr.push(newEnemy);
-        tutorialH2.innerText = 'Dealing with Enemies'
-        tutorialP.innerHTML = 'Oh No! A Enemy Dog Appeared! Be Sure To Not Get Too Close!'
+        tutorialH2.innerText = 'Avoiding Danger'
+        tutorialP.innerHTML = 'Be sure to avoid the water! <br> Cats hate water! <br> The tutorial includes spikes <br> in place of water'
     }, 12000);
 
     setTimeout(() => {
-        tutorialH2.innerText = 'Avoiding Danger'
-        tutorialP.innerHTML = 'Be sure to avoid the water! <br> Cats hate water! <br> The tutorial includes spikes <br> in place of water'
+        const newEnemy = new Enemy;
+        newEnemy.position.x = 200;
+        enemyArr.push(newEnemy);
+        tutorialH2.innerText = 'Dealing with Enemies'
+        tutorialP.innerHTML = 'Oh No! A Enemy Dog Appeared! Be Sure To Not Get Too Close!'
     }, 20000)
 
     setTimeout(() => {

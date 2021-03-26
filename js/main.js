@@ -19,10 +19,15 @@ const healthIcon3 = document.querySelector('#health3');
 const healthIcon4 = document.querySelector('#health4');
 const healthIcon5 = document.querySelector('#health5');
 const loadingH2 = document.querySelector('.loading-screen-h2');
+const loadingH3 = document.querySelector('.loading-screen-h3');
 const tutorialH2 = document.querySelector('.tutorial-screen-h2');
 const tutorialP = document.querySelector('.tutorial-screen-p');
 const gameOverModal = document.querySelector('.gameOver-modal');
 const fishTarget = document.querySelector('#fish-target');
+const winText = document.querySelector('.winText');
+const winGameModal = document.querySelector('.win-game-modal');
+const winGamePlayButton = document.querySelector('#win-game-play-button');
+const gameOverPlayButton = document.querySelector('#game-over-play-button');
 
 
 
@@ -93,7 +98,35 @@ const hideElement = (element) => {
     element.classList.add('hidden');
 }
 
+const resetToBeginning = () => {
+    hideElement(winGameModal);
+    hideElement(gameOverModal);
+    showElement(startButton);
+    showElement(tutorialButton);
+    showElement(titlePage);
+    hideElement(winModal);
+    ctx.clearRect(0, 0, gameWidth, gameHeight);
+    backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    secondaryBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    thirdBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    if (backgroundImg.hasChildNodes('img')) {
+        if (currentLevel === 0) {
+            backgroundImg.removeChild(caveBackground);
+        }
+        if(currentLevel === 2) {
+            backgroundImg.removeChild(neighborhoodBackground);
+        } else if (currentLevel === 3) {
+            backgroundImg.removeChild(forestBackground);
 
+        }
+         
+    }
+    currentLevel = 0;
+    letIntroRun = true;
+    newPlayer.health = 5;
+    enemyArr = [];
+    drawCatRunning();
+}
 // Restart Game
 
 const restartGame = () => {
@@ -101,13 +134,15 @@ const restartGame = () => {
     hideElement(resetModal);
     backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     gameLevels[currentLevel]();
-    enemyArr.pop();
     gameEngineDecider = true;
     gameRun();
 }
 
 
 // DOM Event Listeners
+
+gameOverPlayButton.addEventListener('click', resetToBeginning);
+winGamePlayButton.addEventListener('click', resetToBeginning);
 
 startButton.addEventListener('click', () => {
     letIntroRun = false;
@@ -136,17 +171,20 @@ resetModalXButton.addEventListener('click', () => {
 
 resetButton.addEventListener('click', restartGame);
 
+menuButton.addEventListener('click', resetToBeginning);
 
 // Next Level Button
 
 nextLevel.addEventListener('click', () => {
     winModal.classList.add('hidden');
-    console.log(currentLevel);
+    // console.log(currentLevel);
     if (backgroundImg.hasChildNodes('img')) {
+        if (currentLevel === 0) {
+            backgroundImg.removeChild(caveBackground);
+        }
         if(currentLevel === 2) {
             backgroundImg.removeChild(neighborhoodBackground);
-            backgroundImg.classList.remove('move-up');
-        } else if (currentLevel === 2) {
+        } else if (currentLevel === 3) {
             backgroundImg.removeChild(forestBackground);
 
         }
@@ -158,6 +196,7 @@ nextLevel.addEventListener('click', () => {
     thirdBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     movingX = 1150;
     showElement(loadingH2);
+    showElement(loadingH3);
     loadingScreen();
 })
 
@@ -231,10 +270,19 @@ const gravity = () => {
 
 
 const win = () => {
-    toggleElementDisplay(winModal);
     gameEngineDecider = false;
-    console.log('win!');
+    // console.log('win!');
     hideElement(fishTarget);
+    if(currentLevel === 4) {
+        showElement(winGameModal);
+    } else {
+        toggleElementDisplay(winModal);
+        if(currentLevel === 0) {
+            winText.innerText = `Tutorial Complete!`
+        } else {
+            winText.innerText = `Level ${currentLevel} Complete!`
+        }
+    }
 }
 
 const lose = (character) => {

@@ -4,23 +4,34 @@ const level1 = () => {
     fishTarget.style.left = '770px';
     showElement(fishTarget);
 
-    
+    enemyArr = [];
 
+    // Player Position and sizing
     newPlayer.position.x = 100;
-    newPlayer.position.y = 50;
+    newPlayer.position.y = 20;
     newPlayer.width = 25;
     newPlayer.height = 25;
     newPlayer.speed.x = 0;
+    newPlayer.speed.y = 0;
 
 
     levelPlayerSizeX = 40;
     levelPlayerSizeY = 32;
     levelPlayerYoffset = 5;
 
+
+    // Enemy Position and sizing
+    enemyArr = [];
+
     levelEnemySizeX = 40;
     levelEnemySizeY = 32;
     levelEnemyYoffset = 5;
 
+    newEnemy1 = new Enemy;
+    newEnemy1.position.x = 300;
+    newEnemy1.position.y = 390;
+
+    enemyArr.push(newEnemy1);
     // enemyArr[0].position.x = 415;
     // enemyArr[0].position.y = 320;
 

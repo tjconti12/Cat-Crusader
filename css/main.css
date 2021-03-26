@@ -43,23 +43,29 @@ body {
 
 .screen {
   position: absolute;
-  top: 35%;
+  top: 25%;
   text-align: center;
   z-index: 5000;
   width: 900px;
 }
 .screen h2 {
-  font-size: 6rem;
+  font-size: 4rem;
   color: whitesmoke;
   background-color: rgba(0, 0, 0, 0.6);
-  width: 35vw;
+  width: 500px;
 }
-.screen p {
-  margin-top: 2rem;
+.screen h3 {
   font-size: 3rem;
   color: whitesmoke;
   background-color: rgba(0, 0, 0, 0.6);
-  width: 30vw;
+  width: 500px;
+}
+.screen p {
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 500px;
   line-height: 6rem;
 }
 
@@ -100,6 +106,22 @@ body {
   z-index: 500000;
   width: 80px;
 }
+.gameCanvases .map-background {
+  width: 900px;
+  height: 504px;
+  overflow: hidden;
+  position: absolute;
+  z-index: -2000;
+  margin: 0;
+  top: 0%;
+}
+.gameCanvases .map-background img {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 #game_background {
   position: absolute;
@@ -132,8 +154,9 @@ canvas {
 }
 
 .modal {
-  height: 504vh;
-  width: 900vw;
+  height: 300px;
+  width: 500px;
+  border: 3px solid black;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -141,13 +164,17 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: gray;
+  border-radius: 2%;
   z-index: 3000;
+}
+.modal button {
+  background-color: whitesmoke;
 }
 
 .resetModal {
   z-index: 3000;
-  background-color: #90EE90;
+  background-color: gray;
 }
 .resetModal .resetModal__closeButton {
   position: absolute;
@@ -155,15 +182,23 @@ canvas {
   left: 0;
   width: 20px;
   margin: 5px;
+  background-color: whitesmoke;
 }
 .resetModal .resetModal__button {
   height: 45px;
   width: 120px;
+  background-color: whitesmoke;
 }
 
 .winModal {
+  display: flex;
   flex-direction: column;
   z-index: 3000;
+}
+.winModal h3 {
+  width: 100%;
+  font-size: 3rem;
+  text-align: center;
 }
 .winModal button {
   margin: 20px;
@@ -181,32 +216,29 @@ canvas {
   margin-bottom: 2rem;
 }
 .gameOver-modal button {
-  width: 10vw;
-  height: 5vh;
-  font-size: 3rem;
+  width: 100px;
+  height: 50px;
+  font-size: 2.5rem;
+}
+
+.win-game-modal {
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
+.win-game-modal h2 {
+  font-size: 4rem;
+  width: 100%;
+}
+.win-game-modal button {
+  height: 45px;
+  width: 240px;
+  background-color: whitesmoke;
+  font-size: 2.5rem;
 }
 
 .hidden {
   display: none;
-}
-
-.map-background {
-  width: 900px;
-  height: 504px;
-  overflow: hidden;
-  position: relative;
-  z-index: -2000;
-  margin: 0;
-}
-.map-background img {
-  position: absolute;
-  top: 13%;
-  left: 0;
-  width: 100%;
-}
-
-.move-up img {
-  top: 0%;
 }
 
 @media only screen and (max-width: 900px) {

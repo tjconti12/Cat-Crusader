@@ -1,6 +1,7 @@
 const loadingScreen = () => {
 
-    
+    const levelDescriptions = ['Tutorial', 'Escaping From Home', 'Leaving The Neighborhood', 'Lost In The Woods', 'Out To Sea'];
+
     let levelDisplay = currentLevel;
     if(currentLevel === 0) {
         levelDisplay = 'Tutorial'
@@ -8,6 +9,7 @@ const loadingScreen = () => {
         levelDisplay = currentLevel
     }
     loadingH2.innerText = `Level ${levelDisplay}`;
+    loadingH3.innerText = `${levelDescriptions[currentLevel]}`;
     let loadingScreenAtlas = new Image();
     loadingScreenAtlas.src = './images/transitionScreen.png';
     loadingScreenAtlas.onload = drawLoadingScreen // Uncomment this for background map
@@ -95,6 +97,7 @@ function drawLoadingCat() {
         });
     } else {
         hideElement(loadingH2);
+        hideElement(loadingH3);
         gameLevels[currentLevel]();
         ctx.clearRect(0, 0, gameWidth, gameHeight);
         backgroundctx.clearRect(0, 0, gameWidth, gameHeight);

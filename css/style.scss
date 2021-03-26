@@ -49,7 +49,7 @@ body {
 
 .screen {
     position: absolute;
-    top: 35%;
+    top: 25%;
     // left: 50%;
     // transform: translateX(-50%);
     text-align: center;
@@ -58,18 +58,26 @@ body {
     width: 900px;
     
     h2 {
-        font-size: 6rem;
+        font-size: 4rem;
         color: whitesmoke;
         background-color: rgba(0,0,0,0.6);
-        width: 35vw;
+        width: 500px;
 
     }
-    p {
-        margin-top: 2rem;
+    
+    h3 {
         font-size: 3rem;
         color: whitesmoke;
         background-color: rgba(0,0,0,0.6);
-        width: 30vw;
+        width: 500px;
+        
+    }
+    p {
+        margin-top: 2rem;
+        font-size: 2rem;
+        color: whitesmoke;
+        background-color: rgba(0,0,0,0.6);
+        width: 500px;
         line-height: 6rem;
     }
 }
@@ -117,6 +125,23 @@ body {
         z-index: 500000;
         width: 80px;
     }
+    .map-background {
+        width: 900px;
+        height: 504px;
+        overflow: hidden;
+        position: absolute;
+        z-index: -2000;
+        margin: 0;
+        top: 0%;
+        img {
+           position: absolute;
+            top: 0%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+        }
+    }
 }
 
 #game_background {
@@ -151,8 +176,9 @@ canvas {
 
 
 .modal {
-    height: 504vh;
-    width: 900vw;
+    height: 300px;
+    width: 500px;
+    border: 3px solid black;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -160,29 +186,41 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: gray;
+    border-radius: 2%;
     z-index: 3000;
+    button {
+        background-color: whitesmoke;
+    }
 }
 
 .resetModal {
     z-index: 3000;
-    background-color: #90EE90;
+    background-color: gray;
     .resetModal__closeButton {
         position: absolute;
         top: 0;
         left: 0;
         width: 20px;
         margin: 5px;
-        
+        background-color: whitesmoke;
     }
     .resetModal__button {
         height: 45px;
         width: 120px;
+        background-color: whitesmoke;
     }
 }
 
 .winModal {
+    display: flex;
     flex-direction: column;
+    
+    h3 {
+        width: 100%;
+        font-size: 3rem;
+        text-align: center;
+    }
     button {
         margin: 20px;
         height: 50px;
@@ -200,38 +238,34 @@ canvas {
         margin-bottom: 2rem;
     }
     button {
-        width: 10vw;
-        height: 5vh;
-        font-size: 3rem;
+        width: 100px;
+        height: 50px;
+        font-size: 2.5rem;
     }
 }
+
+.win-game-modal {
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    h2{
+        font-size: 4rem;
+        width: 100%;
+    }
+    button {
+        height: 45px;
+        width: 240px;
+        background-color: whitesmoke;
+        font-size: 2.5rem;
+    }
+}
+
 
 
 .hidden {
     display: none;
 }
 
-.map-background {
-    width: 900px;
-    height: 504px;
-    overflow: hidden;
-    position: relative;
-    z-index: -2000;
-    margin: 0;
-    img {
-       position: absolute;
-        top: 13%;
-        left: 0;
-        width: 100%;
-        
-    }
-}
-
-.move-up {              // This is here to move the background for the neighborhood level
-    img {
-        top: 0%;
-    }
-}
 
 
 

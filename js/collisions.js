@@ -194,6 +194,18 @@ const collision = {
 }
 
 function checkPosition (character) {
+    // First checking for out of bounds of map
+    // if (character.position.x + character.width > gameWidth) {
+    //     character.position.x = gameWidth - character.width;
+    // } else if (character.position.x < 1) {
+    //     character.position.x = 1;
+    // } else if (character.position.y + character.height < gameHeight) {
+    //     character.position.y = gameHeight - character.height;
+    // } else if (character.position.y < 1) {
+    //     character.position.y = 1;
+    // }
+
+
     // Declaring values for use in checkPosition Function
     let currentCol = 0;
     let currentRow = 0;
