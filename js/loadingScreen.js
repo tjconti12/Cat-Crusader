@@ -1,14 +1,20 @@
 const loadingScreen = () => {
 
     
-    loadingH2.innerText = `Level ${currentLevel +1}`;
+    let levelDisplay = currentLevel;
+    if(currentLevel === 0) {
+        levelDisplay = 'Tutorial'
+    } else {
+        levelDisplay = currentLevel
+    }
+    loadingH2.innerText = `Level ${levelDisplay}`;
     let loadingScreenAtlas = new Image();
     loadingScreenAtlas.src = './images/transitionScreen.png';
     loadingScreenAtlas.onload = drawLoadingScreen // Uncomment this for background map
 
     
     tileSize = 32;
-    tileOutputSize = 3; // 1X can set it higher to make tiles bigger and more spaced
+    tileOutputSize = 2.25; // 1X can set it higher to make tiles bigger and more spaced
     updatedTileSize = tileSize * tileOutputSize;
 
     let loadingScreenMap = [
@@ -93,6 +99,7 @@ function drawLoadingCat() {
         ctx.clearRect(0, 0, gameWidth, gameHeight);
         backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
         backgroundImg.removeChild(forestBackground);
+        thirdBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
         gameEngineDecider = true;
         gameRun();
     }

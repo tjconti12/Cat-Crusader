@@ -1,20 +1,59 @@
-function level1 () {
+function tutorial () {
 
     //this.position = {x: gameWidth - this.width - 100, y: gameHeight - this.height - 150};
     newPlayer.position.x = gameWidth - newPlayer.width -80;
     newPlayer.position.y = gameHeight - newPlayer.height -180;
 
-    const newEnemy = new Enemy('num1');
-    newEnemy.position.x = 280;
-    enemyArr.push(newEnemy);
-    newEnemy.setColor('gray');
+
+    fishTarget.style.top = '120px';
+    fishTarget.style.left = '1180px';
+
+    tutorialH2.innerText = `Welcome to the tutorial!`;
+
+    setTimeout(() => {
+        tutorialH2.innerText = ''
+    }, 3000);
+
+    setTimeout(() => {
+        tutorialH2.innerText = 'Moving Character'
+        tutorialP.innerHTML = 'Use your keyboard to move the character<br> Click the left arrow to move left! <br> Click the right arrow to move right! <br> Click the space bar to jump!'
+    }, 4000);
+
+    setTimeout(() => {
+        const newEnemy = new Enemy('num1');
+        newEnemy.position.x = 280;
+        enemyArr.push(newEnemy);
+        tutorialH2.innerText = 'Dealing with Enemies'
+        tutorialP.innerHTML = 'Oh No! A Enemy Dog Appeared! Be Sure To Not Get Too Close!'
+    }, 12000);
+
+    setTimeout(() => {
+        tutorialH2.innerText = 'Avoiding Danger'
+        tutorialP.innerHTML = 'Be sure to avoid the water! <br> Cats hate water! <br> The tutorial includes spikes <br> in place of water'
+    }, 20000)
+
+    setTimeout(() => {
+        showElement(fishTarget);
+        tutorialH2.innerText = 'Clearing The Level'
+        tutorialP.innerHTML = 'A Fish has appeared! <br> This fish marks the goal! <br> Collect this fish to move on! <br> Once all four fish are collected, you win! <br> Good Luck!'
+        
+    }, 30000)
+
+    setTimeout(() => {
+        tutorialH2.innerText = ''
+        tutorialP.innerText = ''
+    }, 40000)
+    // const newEnemy = new Enemy('num1');
+    // newEnemy.position.x = 280;
+    // enemyArr.push(newEnemy);
+    // newEnemy.setColor('gray');
 
     let tileAtlas = new Image();
     tileAtlas.src = './images/tileAtlas.png';
     tileAtlas.onload = draw; // Uncomment this for background map
 
     tileSize = 16;
-    tileOutputSize = 3; // 1X can set it higher to make tiles bigger and more spaced
+    tileOutputSize = 2.25; // 1X can set it higher to make tiles bigger and more spaced
     updatedTileSize = tileSize * tileOutputSize;
 
 
@@ -86,7 +125,7 @@ function level1 () {
 
 
 
-gameLevels.push(level1);
+gameLevels.push(tutorial);
 
 // level1();
 

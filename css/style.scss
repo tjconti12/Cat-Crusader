@@ -4,7 +4,7 @@
     font-size: 10px;
     margin: 0 auto;
     // border: 2px solid black;
-    // overflow: hidden;
+    overflow: hidden;
     width: 1200px;
     font-family: 'New Tegomin', serif;
 }
@@ -12,9 +12,11 @@
 
 
 body {
-    margin-left: 30px;
+    margin: 0 auto;
+    display: block;
     background: linear-gradient(black, white);
-    
+    width: 100vw;
+    height: 100vh;
 }
 
 .health-status {
@@ -29,8 +31,8 @@ body {
     background-image: url('../images/introBackground.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
-    width: 1200px;
-    height: 700px;
+    width: 900px;
+    height: 504px;
     position: absolute;
     margin: 0 auto;
     
@@ -38,28 +40,43 @@ body {
     h1 {
         font-size: 6rem;
         text-align: center;
-        transform: translateY(80px);
+        transform: translateY(10px);
         color: whitesmoke;
+        width: 900px;
     }
     
 }
 
-.loading-screen {
+.screen {
     position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 35%;
+    // left: 50%;
+    // transform: translateX(-50%);
     text-align: center;
     
     z-index: 5000;
+    width: 900px;
     
     h2 {
-        font-size: 7rem;
+        font-size: 6rem;
+        color: whitesmoke;
+        background-color: rgba(0,0,0,0.6);
+        width: 35vw;
+
+    }
+    p {
+        margin-top: 2rem;
+        font-size: 3rem;
         color: whitesmoke;
         background-color: rgba(0,0,0,0.6);
         width: 30vw;
+        line-height: 6rem;
     }
 }
+
+
+
+
 
 .gameCanvases {
     padding-left: 0;
@@ -68,33 +85,59 @@ body {
     margin-right: auto;
     margin-top: 50px;
     display: block;
-    width: 1200px;
+    width: 900px;
+    height: 504;
     position: absolute;
     z-index: 100;
-    button {
-        height: 10vh;
-        width: 15vw;
+    .button-container {
+        
+        #start-button {
+            height: 50px;
+            width: 120px;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-size: 3rem;
+        }
+        #tutorial-start-button {
+            height: 50px;
+            width: 120px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-size: 2.8rem;
+        }
+    }
+    #fish-target {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000;
-        font-size: 3rem;
+        z-index: 500000;
+        width: 80px;
     }
 }
 
 #game_background {
     position: absolute;
     top: 0;
-    
+    left: 0;
     z-index: -10;
 }
 
 #secondary_background {
     position: absolute;
     top: 0;
-
+    left: 0;
     z-index: -2000;
+}
+
+#third_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3000;
 }
 
 canvas {
@@ -103,13 +146,13 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 1200px;
+    width: 900px;
 }
 
 
 .modal {
-    height: 60vh;
-    width: 80vw;
+    height: 504vh;
+    width: 900vw;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -169,14 +212,31 @@ canvas {
 }
 
 .map-background {
-    width: 1200px;
-    height: 700px;
+    width: 900px;
+    height: 504px;
     overflow: hidden;
     position: relative;
     z-index: -2000;
+    margin: 0;
     img {
        position: absolute;
         top: 13%;
+        left: 0;
+        width: 100%;
         
+    }
+}
+
+.move-up {              // This is here to move the background for the neighborhood level
+    img {
+        top: 0%;
+    }
+}
+
+
+
+@media only screen and (max-width: 900px) {
+    body {
+        margin: 0;
     }
 }

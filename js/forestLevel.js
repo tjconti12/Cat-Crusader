@@ -1,19 +1,23 @@
 const level3 = () => {
 
+    fishTarget.style.top = '190px';
+    fishTarget.style.left = '830px';
+    showElement(fishTarget);
+
     newPlayer.position.x = 20;
     newPlayer.position.y = 500;
     newPlayer.width = 25;
     newPlayer.height = 25;
     newPlayer.speed.x = 0;
     
-    enemyArr[0].position.x = 180;
-    enemyArr[0].position.y = 520;
-    enemyArr[1].position.x = 380;
-    enemyArr[1].position.y = 10;
-    newEnemy3 = new Enemy('num2');
-    newEnemy3.position.x = 90;
-    newEnemy3.position.y = 300;
-    enemyArr.push(newEnemy3);
+    // enemyArr[0].position.x = 180;
+    // enemyArr[0].position.y = 520;
+    // enemyArr[1].position.x = 380;
+    // enemyArr[1].position.y = 10;
+    // newEnemy3 = new Enemy('num2');
+    // newEnemy3.position.x = 90;
+    // newEnemy3.position.y = 300;
+    // enemyArr.push(newEnemy3);
 
     let forestAtlas = new Image();
     forestAtlas.src = './images/forestTileAtlas.png';
@@ -22,7 +26,7 @@ const level3 = () => {
     
 
     tileSize = 16;
-    tileOutputSize = 1.5; // 1X can set it higher to make tiles bigger and more spaced
+    tileOutputSize = 1.125; // 1X can set it higher to make tiles bigger and more spaced
     updatedTileSize = tileSize * tileOutputSize;
 
     let forestMap = [
@@ -99,7 +103,7 @@ const level3 = () => {
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,15,15,15,15,15, 3, 3, 3, 3, 3,15,15,15,15,15,15, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     ];
 
 }

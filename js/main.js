@@ -1,8 +1,8 @@
 // DOM Elements
 const canvas = document.querySelector('#game_display');
 const ctx = canvas.getContext('2d');
-const width = canvas.width = 1200;
-const height = canvas.height = 672;
+const width = canvas.width = 900;
+const height = canvas.height = 504;
 const resetModal = document.querySelector('.resetModal');
 const resetModalXButton = document.querySelector('.resetModal__closeButton');
 const resetButton = document.querySelector('.resetModal__button');
@@ -10,6 +10,7 @@ const winModal = document.querySelector('.winModal');
 const nextLevel = document.querySelector('.winModal__nextButton');
 const menuButton = document.querySelector('.winModal__menuButton');
 const startButton = document.querySelector('#start-button');
+const tutorialButton = document.querySelector('#tutorial-start-button');
 const titlePage = document.querySelector('.title-page');
 const livesCounter = document.querySelector('#lives-counter');
 const healthIcon1 = document.querySelector('#health1');
@@ -18,19 +19,28 @@ const healthIcon3 = document.querySelector('#health3');
 const healthIcon4 = document.querySelector('#health4');
 const healthIcon5 = document.querySelector('#health5');
 const loadingH2 = document.querySelector('.loading-screen-h2');
+const tutorialH2 = document.querySelector('.tutorial-screen-h2');
+const tutorialP = document.querySelector('.tutorial-screen-p');
 const gameOverModal = document.querySelector('.gameOver-modal');
+const fishTarget = document.querySelector('#fish-target');
 
 
 
 const backgroundCanvas = document.querySelector('#game_background');
 const backgroundctx = backgroundCanvas.getContext('2d');
-const backgroundWidth = backgroundCanvas.width = 1200;
-const backgroundHeight = backgroundCanvas.height = 672;
+const backgroundWidth = backgroundCanvas.width = 900; // 1200
+const backgroundHeight = backgroundCanvas.height = 504 // 672
 
 const secondaryBackground = document.querySelector('#secondary_background');
 const secondaryBackgroundctx = secondaryBackground.getContext('2d');
-const secondaryBackgroundWidth = secondaryBackground.width = 1200;
-const secondaryBackgroundHeight = secondaryBackground.height = 672;
+const secondaryBackgroundWidth = secondaryBackground.width = 900; // 1200
+const secondaryBackgroundHeight = secondaryBackground.height = 504; // 672
+
+
+const thirdBackground = document.querySelector('#third_background');
+const thirdBackgroundctx = thirdBackground.getContext('2d');
+const thirdBackgroundWidth = thirdBackground.width = 900; // 1200
+const thirdBackgroundHeight = thirdBackground.height = 504; // 672
 
 const backgroundImg = document.querySelector('.map-background');
 
@@ -56,12 +66,16 @@ let collisionMap = []; // Needed to declare this before gameRun function in load
 let collisionMapCols = 25;
 let collisionMapRows = 14;
 
-// For Background Imgs
-let caveBackground = new Image();
-caveBackground.src = './images/caveBackground.jpeg';
+// For Background Imgs                                          // Added backgrounds to global scope so it can be cleared after level is over
 
 let forestBackground = new Image();
 forestBackground.src = './images/forestBackground.jpeg';
+
+let neighborhoodBackground = new Image();
+neighborhoodBackground.src = './images/neighborhoodBackground.jpeg'
+
+let caveBackground = new Image();
+caveBackground.src = './images/caveBackground.jpeg';
 
 const healthIconsArr = [healthIcon1, healthIcon2, healthIcon3, healthIcon4, healthIcon5];
 
@@ -80,6 +94,7 @@ const hideElement = (element) => {
 }
 
 
+// Restart Game
 
 const restartGame = () => {
     // location.reload();
@@ -97,12 +112,23 @@ const restartGame = () => {
 startButton.addEventListener('click', () => {
     letIntroRun = false;
     hideElement(startButton);
+    hideElement(tutorialButton);
     hideElement(titlePage);
+    currentLevel +=1;
     loadingScreen();
     // gameRun();
     // level1();
     
 })
+
+tutorialButton.addEventListener('click', () => {
+    letIntroRun = false;
+    hideElement(startButton);
+    hideElement(tutorialButton);
+    hideElement(titlePage);
+    loadingScreen();
+})
+
 
 resetModalXButton.addEventListener('click', () => {
     toggleElementDisplay(resetModal);
@@ -111,14 +137,25 @@ resetModalXButton.addEventListener('click', () => {
 resetButton.addEventListener('click', restartGame);
 
 
+// Next Level Button
+
 nextLevel.addEventListener('click', () => {
     winModal.classList.add('hidden');
+    console.log(currentLevel);
     if (backgroundImg.hasChildNodes('img')) {
-        backgroundImg.removeChild(caveBackground);
+        if(currentLevel === 2) {
+            backgroundImg.removeChild(neighborhoodBackground);
+            backgroundImg.classList.remove('move-up');
+        } else if (currentLevel === 2) {
+            backgroundImg.removeChild(forestBackground);
+
+        }
+         
     }
     currentLevel += 1;
     secondaryBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
+    thirdBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     movingX = 1150;
     showElement(loadingH2);
     loadingScreen();
@@ -197,6 +234,7 @@ const win = () => {
     toggleElementDisplay(winModal);
     gameEngineDecider = false;
     console.log('win!');
+    hideElement(fishTarget);
 }
 
 const lose = (character) => {

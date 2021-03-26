@@ -11,6 +11,7 @@ const gameRun = () => {
     checkPosition(newPlayer);
     newPlayer.checkLeftKeyDown();
     newPlayer.checkRightKeyDown();
+    // console.log(newPlayer.position.x);
     enemyArr.forEach((enemy) => {
         enemy.draw(ctx);
         enemy.move();

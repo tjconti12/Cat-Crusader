@@ -1,7 +1,11 @@
-const level2 = () => {
+const level4 = () => {
 
-    newPlayer.position.x = 530;
-    newPlayer.position.y = 500;
+    fishTarget.style.top = '250px';
+    fishTarget.style.left = '825px';
+    showElement(fishTarget);
+
+    newPlayer.position.x = 460;
+    newPlayer.position.y = 400;
     newPlayer.width = 25;
     newPlayer.height = 25;
     newPlayer.speed.x = 0;
@@ -15,15 +19,15 @@ const level2 = () => {
     levelEnemySizeY = 32;
     levelEnemyYoffset = 5;
 
-    enemyArr[0].position.x = 415;
-    enemyArr[0].position.y = 320;
+    // enemyArr[0].position.x = 415;
+    // enemyArr[0].position.y = 320;
 
-    newEnemy2 = new Enemy('num2');
-    newEnemy2.setColor('gray');
-    newEnemy2.position.x = 480;
-    newEnemy2.position.y = 200;
-    // newEnemy2.moveDirectionStart = -2;
-    enemyArr.push(newEnemy2);
+    // newEnemy2 = new Enemy('num2');
+    // newEnemy2.setColor('gray');
+    // newEnemy2.position.x = 480;
+    // newEnemy2.position.y = 200;
+    // // newEnemy2.moveDirectionStart = -2;
+    // enemyArr.push(newEnemy2);
 
     let shipAtlas = new Image();
     shipAtlas.src = './images/pirates.v1.png';
@@ -32,7 +36,7 @@ const level2 = () => {
     
 
     tileSize = 16;
-    tileOutputSize = 1.5; // 1X can set it higher to make tiles bigger and more spaced
+    tileOutputSize = 1.125; // 1X can set it higher to make tiles bigger and more spaced
     updatedTileSize = tileSize * tileOutputSize;
 
     let pirateMap = [
@@ -144,7 +148,7 @@ const level2 = () => {
 
 }
 
-gameLevels.push(level2);
+gameLevels.push(level4);
 //////////////////////////////////////
 //////// FOR TESTINGGGG!!!!!//////////
 
