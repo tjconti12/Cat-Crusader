@@ -16,17 +16,21 @@ const level4 = () => {
     levelPlayerYoffset = 5;
 
     enemyArr.pop();
+    enemyArr.pop();
+    enemyArr.pop();
 
     levelEnemySizeX = 40;
     levelEnemySizeY = 32;
     levelEnemyYoffset = 5;
 
-    enemyArr[0].position.x = 310;
-    enemyArr[0].position.y = 290;
+    newEnemy1 = new Enemy();
+    newEnemy1.position.x = 310;
+    newEnemy1.position.y = 290;
+    enemyArr.push(newEnemy1);
 
     newEnemy2 = new Enemy();
-    newEnemy2.position.x = 380;
-    newEnemy2.position.y = 100;
+    newEnemy2.position.x = 400;
+    newEnemy2.position.y = 90;
     enemyArr.push(newEnemy2);
 
     newEnemy3 = new Enemy;
@@ -35,6 +39,11 @@ const level4 = () => {
     newEnemy3.position.y = 150;
     // // newEnemy2.moveDirectionStart = -2;
     enemyArr.push(newEnemy3);
+
+    enemyArr.forEach(element => {
+        element.width = 20;
+        element.height = 20;
+    });
 
     let shipAtlas = new Image();
     shipAtlas.src = './images/pirates.v1.png';

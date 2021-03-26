@@ -13,6 +13,7 @@ const startButton = document.querySelector('#start-button');
 const tutorialButton = document.querySelector('#tutorial-start-button');
 const titlePage = document.querySelector('.title-page');
 const livesCounter = document.querySelector('#lives-counter');
+const healthIconPlaceHolder = document.querySelector('#placeholder');
 const healthIcon1 = document.querySelector('#health1');
 const healthIcon2 = document.querySelector('#health2');
 const healthIcon3 = document.querySelector('#health3');
@@ -82,7 +83,7 @@ neighborhoodBackground.src = './images/neighborhoodBackground.jpeg'
 let caveBackground = new Image();
 caveBackground.src = './images/caveBackground.jpeg';
 
-const healthIconsArr = [healthIcon1, healthIcon2, healthIcon3, healthIcon4, healthIcon5];
+const healthIconsArr = [healthIconPlaceHolder, healthIcon1, healthIcon2, healthIcon3, healthIcon4, healthIcon5];
 
 
 // DOM Related Functions
@@ -105,6 +106,7 @@ const resetToBeginning = () => {
     showElement(tutorialButton);
     showElement(titlePage);
     hideElement(winModal);
+    hideElement(resetModal);
     ctx.clearRect(0, 0, gameWidth, gameHeight);
     backgroundctx.clearRect(0, 0, gameWidth, gameHeight);
     secondaryBackgroundctx.clearRect(0, 0, gameWidth, gameHeight);
@@ -121,6 +123,9 @@ const resetToBeginning = () => {
         }
          
     }
+    healthIconsArr.forEach(element => {
+        showElement(element);
+    })
     currentLevel = 0;
     letIntroRun = true;
     newPlayer.health = 5;
@@ -165,9 +170,9 @@ tutorialButton.addEventListener('click', () => {
 })
 
 
-resetModalXButton.addEventListener('click', () => {
-    toggleElementDisplay(resetModal);
-});
+// resetModalXButton.addEventListener('click', () => {   // Did not end up needing this
+//     toggleElementDisplay(resetModal);
+// });
 
 resetButton.addEventListener('click', restartGame);
 
@@ -293,7 +298,7 @@ const lose = (character) => {
         console.log('You lose!');
         showElement(resetModal);
         gameEngineDecider = false;
-        hideElement(healthIconsArr[character.health]); 
+        hideElement(healthIconsArr[character.health + 1]); 
     }
 }
 

@@ -106,7 +106,7 @@ class Player {
             this.oldPosition.x = this.position.x;
             this.oldPosition.y = this.position.y;
         }
-        livesCounter.innerText= newPlayer.health;
+        // livesCounter.innerText= newPlayer.health; // Decided to use picture logos instead
         oldPositionDelay += 1;
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;

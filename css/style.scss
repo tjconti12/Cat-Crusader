@@ -22,6 +22,9 @@ body {
 .health-status {
     color: whitesmoke;
     font-size: 2rem;
+    div {
+        display: inline;
+    }
     img {
         width: 30px;
     }
@@ -234,13 +237,13 @@ canvas {
     display: flex;
     flex-direction: column;
     h2 {
-        font-size: 7rem;
-        margin-bottom: 2rem;
+        font-size: 4rem;
+        width: 100%;
     }
     button {
         width: 100px;
         height: 50px;
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 }
 

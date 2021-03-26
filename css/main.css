@@ -20,6 +20,9 @@ body {
   color: whitesmoke;
   font-size: 2rem;
 }
+.health-status div {
+  display: inline;
+}
 .health-status img {
   width: 30px;
 }
@@ -212,13 +215,13 @@ canvas {
   flex-direction: column;
 }
 .gameOver-modal h2 {
-  font-size: 7rem;
-  margin-bottom: 2rem;
+  font-size: 4rem;
+  width: 100%;
 }
 .gameOver-modal button {
   width: 100px;
   height: 50px;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 .win-game-modal {
