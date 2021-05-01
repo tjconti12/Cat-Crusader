@@ -19,6 +19,7 @@ The game also includes AI enemy characters that move on their own.
 No installation required if you visit the site on github pages. The game is fully playable in the web browser.
 
 ## Credits
+- PothOnProgramming https://www.youtube.com/channel/UCdS3ojA8RL8t1r18Gj1cl6w for tutorials and inspiration
 - Spriteshift for Morning Adventures tileset
 - Sharm, HughSpectrum and LPC for home objects tileset
 - Guardian for Row House Tileset
