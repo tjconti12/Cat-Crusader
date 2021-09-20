@@ -2,17 +2,12 @@
     box-sizing: border-box;
     padding: 0;
     font-size: 10px;
-    margin: 0 auto;
-    // border: 2px solid black;
+    margin: 0;
     overflow: hidden;
-    width: 1200px;
     font-family: 'New Tegomin', serif;
 }
 
-
-
 body {
-    margin: 0 auto;
     display: block;
     background: linear-gradient(black, white);
     width: 100vw;
@@ -22,6 +17,8 @@ body {
 .health-status {
     color: whitesmoke;
     font-size: 2rem;
+    width: 900px;
+    margin: 15px auto 0;
     div {
         display: inline;
     }
@@ -37,8 +34,9 @@ body {
     width: 900px;
     height: 504px;
     position: absolute;
-    margin: 0 auto;
-    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
     h1 {
         font-size: 6rem;
@@ -52,13 +50,16 @@ body {
 
 .screen {
     position: absolute;
-    top: 25%;
-    // left: 50%;
-    // transform: translateX(-50%);
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    
     z-index: 5000;
-    width: 900px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
     h2 {
         font-size: 4rem;
@@ -92,13 +93,14 @@ body {
 .gameCanvases {
     padding-left: 0;
     padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+    margin: 0 auto;
     display: block;
     width: 900px;
     height: 504;
     position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 100;
     .button-container {
         
