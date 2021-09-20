@@ -29,7 +29,7 @@ function tutorial () {
         newEnemy.position.x = 200;
         enemyArr.push(newEnemy);
         tutorialH2.innerText = 'Dealing with Enemies'
-        tutorialP.innerHTML = 'Oh No! A Enemy Dog Appeared! Be Sure To Not Get Too Close!'
+        tutorialP.innerHTML = 'Oh No! An Enemy Dog Appeared! Be Sure To Not Get Too Close!'
     }, 20000)
 
     setTimeout(() => {

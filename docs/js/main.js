@@ -292,6 +292,7 @@ const win = () => {
 
 const lose = (character) => {
     character.health -= 1;
+    hideElement(fishTarget);
     if(character.health === 0) {
         showElement(gameOverModal);
     } else {
